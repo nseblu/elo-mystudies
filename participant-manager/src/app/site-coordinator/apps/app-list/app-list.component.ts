@@ -115,7 +115,9 @@ export class AppListComponent implements OnInit {
             app.customId?.toLowerCase().includes(query.toLowerCase()),
         );
         this.loadMoreEnabled =
-          this.manageAppsBackup.apps.length % this.limit === 0 ? true : false;
+          (this.manageAppsBackup.apps.length % this.limit === 0
+            ? true
+            : false) && manageApps.apps.length > 0;
         return this.manageAppsBackup;
       }),
     );

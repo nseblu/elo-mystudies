@@ -105,9 +105,9 @@ export class StudyListComponent implements OnInit {
             study.customId?.toLowerCase().includes(query.toLowerCase()),
         );
         this.loadMoreEnabled =
-          this.manageStudiesBackup.studies.length % this.limit === 0
+          (this.manageStudiesBackup.studies.length % this.limit === 0
             ? true
-            : false;
+            : false) && manageStudies.studies.length > 0;
         return this.manageStudiesBackup;
       }),
     );
