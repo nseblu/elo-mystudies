@@ -106,6 +106,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1132,12 +1133,11 @@ public class SiteServiceImpl implements SiteService {
     if (optUser.isPresent() && optUser.get().isSuperAdmin()) {
       List<StudyDetails> studies =
           getSitesForSuperAdmin(limit, offset, StringUtils.defaultString(searchTerm));
-      Long totalStudiesCount = studyRepository.count();
-      return new SiteDetailsResponse(
-          studies, MessageCode.GET_SITES_SUCCESS, totalStudiesCount);
+      return new SiteDetailsResponse(studies, MessageCode.GET_SITES_SUCCESS);
     }
 
-    List<String> studyIds = studyRepository.findStudyIds(limit, offset, userId);
+    List<String> studyIds =
+        studyRepository.findStudyIds(limit, offset, userId, StringUtils.defaultString(searchTerm));
 
     List<StudySiteInfo> studySiteDetails = null;
     if (CollectionUtils.isNotEmpty(studyIds)) {
@@ -1147,7 +1147,7 @@ public class SiteServiceImpl implements SiteService {
     }
 
     if (CollectionUtils.isEmpty(studySiteDetails)) {
-      throw new ErrorCodeException(ErrorCode.NO_SITES_FOUND);
+      return new SiteDetailsResponse(new ArrayList<>(), MessageCode.GET_SITES_SUCCESS);
     }
 
     List<EnrolledInvitedCount> enrolledInvitedCountList =
@@ -1177,7 +1177,7 @@ public class SiteServiceImpl implements SiteService {
 
       StudyDetails studyDetail = studiesMap.get(studySiteInfo.getStudyId());
 
-      if (studySiteInfo.getStudyPermission() == 1) {
+      if (studySiteInfo.getStudyPermission() == 1 && studySiteInfo.getEditPermission() == 1) {
         studyDetail.setStudyPermission(studySiteInfo.getEditPermission());
       }
 
@@ -1189,9 +1189,7 @@ public class SiteServiceImpl implements SiteService {
     }
 
     List<StudyDetails> studies = studiesMap.values().stream().collect(Collectors.toList());
-
-    Long totalStudiesCount = studyRepository.countStudyForSites(userId);
-    return new SiteDetailsResponse(studies, MessageCode.GET_SITES_SUCCESS, totalStudiesCount);
+    return new SiteDetailsResponse(studies, MessageCode.GET_SITES_SUCCESS);
   }
 
   private List<StudyDetails> getSitesForSuperAdmin(
@@ -1277,6 +1275,14 @@ public class SiteServiceImpl implements SiteService {
       site.setEnrollmentPercentage(DEFAULT_PERCENTAGE);
     }
     studyDetail.getSites().add(site);
+    List<SiteDetails> sortedSites =
+        studyDetail
+            .getSites()
+            .stream()
+            .sorted(Comparator.comparing(SiteDetails::getName, String.CASE_INSENSITIVE_ORDER))
+            .collect(Collectors.toList());
+    studyDetail.getSites().clear();
+    studyDetail.getSites().addAll(sortedSites);
   }
 
   private void prepareSiteDetails(
@@ -1315,8 +1321,15 @@ public class SiteServiceImpl implements SiteService {
         && studySiteInfo.getStudyType().equals(OPEN_STUDY)) {
       siteDetails.setEnrollmentPercentage(DEFAULT_PERCENTAGE);
     }
-
     studyDetail.getSites().add(siteDetails);
+    List<SiteDetails> sortedSites =
+        studyDetail
+            .getSites()
+            .stream()
+            .sorted(Comparator.comparing(SiteDetails::getName, String.CASE_INSENSITIVE_ORDER))
+            .collect(Collectors.toList());
+    studyDetail.getSites().clear();
+    studyDetail.getSites().addAll(sortedSites);
   }
 
   @Override

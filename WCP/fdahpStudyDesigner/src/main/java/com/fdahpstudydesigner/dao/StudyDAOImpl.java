@@ -6122,7 +6122,8 @@ public class StudyDAOImpl implements StudyDAO {
           }
         }
       }
-      if (!notificationFlag) {
+      if (!notificationFlag
+          && buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_LUNCH)) {
         message = FdahpStudyDesignerConstants.NOTIFICATION_ERROR_MSG;
 
         return message;
