@@ -15,6 +15,21 @@
   .tooltip {
     width: 200px;
   }
+  
+  .display__flex__ {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .display__flex__center{
+    margin-top: 10px !important;
+  }
+  
+  .btn{
+  font-size:13px !important
+  }
+  
 </style>
 <script type="text/javascript">
   function isNumber(evt) {
@@ -1893,7 +1908,7 @@
                             class="requiredStar">*
                         </span>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group mb-none dropdown-font">
                         <select name="questionResponseSubTypeList[${subtype.index}].exclusive"
                                 id="exclusiveId${subtype.index}" index="${subtype.index}"
                                 title="select" data-error="Please choose one option"
@@ -1914,7 +1929,7 @@
                     </div>
                     <div class="col-md-12 p-none display__flex__center">
                       <div class="col-md-10 pl-none">
-                        <div class="gray-xs-f mb-xs">Description(1 to 150 characters)</div>
+                        <div class="gray-xs-f mb-xs margin-des">Description(1 to 150 characters)</div>
                         <div class="form-group">
                           <textarea class="form-control"
                                     name="questionResponseSubTypeList[${subtype.index}].description"
@@ -1976,7 +1991,7 @@
                           class="requiredStar">*
                       </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-none dropdown-font">
                       <select name="questionResponseSubTypeList[0].exclusive" id="exclusiveId0"
                               index="0" title="select" data-error="Please choose one option"
                               class="selectpicker <c:if test="${questionsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}">TextChoiceRequired</c:if> textChoiceExclusive"
@@ -1996,7 +2011,7 @@
                   </div>
                   <div class="col-md-12 p-none display__flex__center">
                     <div class="col-md-10 pl-none">
-                    <div class="gray-xs-f mb-xs">Description(1 to 150 characters)</div>
+                    <div class="gray-xs-f mb-xs margin-des">Description(1 to 150 characters)</div>
                       <div class="form-group">
                         <textarea class="form-control"
                                   name="questionResponseSubTypeList[0].description"
@@ -2054,7 +2069,7 @@
                           class="requiredStar">*
                       </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-none">
                       <select name="questionResponseSubTypeList[1].exclusive" id="exclusiveId1"
                               index="1" title="select" data-error="Please choose one option"
                               class="selectpicker <c:if test="${questionsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}">TextChoiceRequired</c:if> textChoiceExclusive"
@@ -2074,7 +2089,7 @@
                   </div>
                   <div class="col-md-12 p-none display__flex__center">
                     <div class="col-md-10 pl-none">
-                     <div class="gray-xs-f mb-xs">Description(1 to 150 characters)</div>
+                     <div class="gray-xs-f mb-xs margin-des">Description(1 to 150 characters)</div>
                       <div class="form-group">
                         <textarea class="form-control"
                                   name="questionResponseSubTypeList[1].description"
@@ -2438,6 +2453,9 @@
 </div>
 <!-- End right Content here -->
 <script type="text/javascript">
+if(document.getElementById("singleSelect").checked==true){
+	$('.textChoiceExclusive').parent().parent().hide();	
+}
   $(document).ready(function () {
 
     if ($('#useAnchorDateId').is(':checked')) {
@@ -3247,6 +3265,7 @@
       var value = $(this).val();
 
       getResponseType(value);
+      $('.textChoiceExclusive').parent().parent().hide();
     });
     $('.DateStyleRequired').on("change", function () {
       var value = $(this).val();
@@ -4153,10 +4172,12 @@
 
       $('.selectpicker').selectpicker('refresh');
       $(".textChoiceExclusive").validator('validate');
+      $('.textChoiceExclusive').parent().parent().hide();
     } else {
       $('.textChoiceExclusive').attr("disabled", false);
       $('.textChoiceExclusive').attr("required", true);
       $('.selectpicker').selectpicker('refresh');
+      $('.textChoiceExclusive').parent().parent().show();
     }
   }
 
@@ -4329,7 +4350,7 @@
         "<div class='col-md-2 pl-none'>" +
         "   <div class='gray-xs-f mb-xs'>Mark as exclusive ? <span class='requiredStar'>*</span> </div>"
         +
-        "   <div class='form-group'>";
+        "   <div class='form-group mb-none'>";
     if (selectionStyle == 'Single') {
       newTextChoice += "<select name='questionResponseSubTypeList[" + choiceCount
           + "].exclusive' id='exclusiveId" + choiceCount + "' index=" + choiceCount
@@ -4347,7 +4368,7 @@
         "</div> ";
     newTextChoice +=
         "<div class='col-md-12 p-none display__flex__center'><div class='col-md-10 pl-none'>" +
-        "   <div class='gray-xs-f mb-xs'>Description(1 to 150 characters) </div>"
+        "   <div class='gray-xs-f mb-xs margin-des'>Description(1 to 150 characters) </div>"
         +
         "   <div class='form-group'>					     " +
         "      <textarea class='form-control' name='questionResponseSubTypeList[" + choiceCount
@@ -4374,6 +4395,11 @@
       $(".remBtnDis").addClass("hide");
     }
     $('#' + choiceCount).find('input:first').focus();
+    if (selectionStyle == 'Single') {
+    	$('.textChoiceExclusive').parent().parent().hide();
+    }else{
+  	  $('.textChoiceExclusive').parent().parent().show();
+    }
   }
 
   function removeTextChoice(param) {
