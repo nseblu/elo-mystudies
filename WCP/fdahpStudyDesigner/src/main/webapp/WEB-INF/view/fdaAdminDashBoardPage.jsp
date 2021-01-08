@@ -79,6 +79,11 @@
   top: -5px;
   left: 5px;
 }
+.profileBox li.linkProf a {
+    width: 100%;
+    display: inline-block;
+    padding: 8px 25px;
+}
    </style>
   </head>
   <body class="loading background__img" onload="noBack();" onpageshow="if (event.persisted) noBack();"
@@ -97,8 +102,8 @@
       <div class="logout">
         <div class="dis-line pull-right ml-md line34">
        <div  class="dropdown ml-lg userLi">
-              <a class="dropdown-toggle blue-link" data-toggle="dropdown" style="color:#fff;"
-                 href="javascript:void(0)"> <span>${sessionObject.firstName}</span>
+              <a class="dropdown-toggle blue-link text-uppercase" data-toggle="dropdown" style="color:#fff;"
+                 href="javascript:void(0)"> <span>${sessionObject.firstName} ${sessionObject.lastName}</span>
                 &nbsp;<span class="arrow"></span>
               </a>
               <ul class="dropdown-menu pb-none pt-none profileBox">
