@@ -136,7 +136,6 @@ html, body {
         <span class="display-1 d-block">
           <img src="/studybuilder/images/icons/ErrorIcon.svg" alt="Page not found here" />
         </span>
-        <!-- <span class="custom__font_error">404</span> -->
         <div class="invalidLink">This link is no longer valid to be used. 
                 Please contact the system admin for assistance with your account or sign in if already registered.
         </div>
