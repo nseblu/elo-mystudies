@@ -48,6 +48,10 @@
   
    
 <style>
+html, body {
+  height: 100%;
+}
+
  header.header {
 	 width: 100%;
 	 height: 50px;
@@ -103,13 +107,14 @@
   min-height: 100%;
 }
 
-.invalidLink {
-    padding: 50px 50px;
-}
+.invalidLink_text 
+	{
+	color: #353a3e;
+    font-size: 100%;
+    font-weight: 600; 
+	}
 
-html, body {
-  height: 100%;
-}
+
 </style>
   </head>
   <body>
@@ -136,7 +141,7 @@ html, body {
         <span class="display-1 d-block">
           <img src="/studybuilder/images/icons/ErrorIcon.svg" alt="Page not found here" />
         </span>
-        <div class="invalidLink">This link is no longer valid to be used. 
+        <div class="invalidLink_text mt-4 mb-4">This link is no longer valid to be used. 
                 Please contact the system admin for assistance with your account or sign in if already registered.
         </div>
       </div>

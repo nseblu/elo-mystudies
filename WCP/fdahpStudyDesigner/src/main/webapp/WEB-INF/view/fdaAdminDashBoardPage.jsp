@@ -68,8 +68,8 @@
   position: absolute;
   content: "";
   display: inline-block;
-  width: 12px;
-  height: 3px;
+  width: 10px;
+  height: 2px;
   background-color: #fff;
   transition: 0.4s ease;
 }
@@ -78,11 +78,6 @@
   transform: rotate(90deg);
   top: -5px;
   left: 5px;
-}
-.profileBox li.linkProf a {
-    width: 100%;
-    display: inline-block;
-    padding: 8px 25px;
 }
    </style>
   </head>

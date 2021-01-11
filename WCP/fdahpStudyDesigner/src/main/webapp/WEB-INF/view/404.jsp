@@ -53,6 +53,9 @@
   
    
 <style>
+html, body {
+  height: 100%;
+}
  header.header {
 	 width: 100%;
 	 height: 50px;
@@ -108,9 +111,7 @@
   min-height: 100%;
 }
 
-html, body {
-  height: 100%;
-}
+
 </style>
   </head>
   <body>
