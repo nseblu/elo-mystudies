@@ -2042,7 +2042,7 @@
                     <div class="form-group mb-none">
                       <input type="text" class="form-control TextChoiceRequired"
                              name="questionResponseSubTypeList[1].text"
-                             id="displayTextChoiceText0"
+                             id="displayTextChoiceText1"
                              value="${fn:escapeXml(questionsBo.questionResponseSubTypeList[1].text)}"
                              maxlength="100">
                       <div class="help-block with-errors red-txt"></div>
@@ -2057,7 +2057,7 @@
                     <div class="form-group mb-none">
                       <input type="text" class="form-control TextChoiceRequired textChoiceVal"
                              name="questionResponseSubTypeList[1].value"
-                             id="displayTextChoiceValue0"
+                             id="displayTextChoiceValue1"
                              value="${fn:escapeXml(questionsBo.questionResponseSubTypeList[1].value)}"
                              maxlength="100">
                       <div class="help-block with-errors red-txt"></div>
@@ -2457,6 +2457,12 @@ if(document.getElementById("singleSelect").checked==true){
 	$('.textChoiceExclusive').parent().parent().hide();	
 }
   $(document).ready(function () {
+
+	  if ($('.text-choice').length > 2){
+	     	 $(".remBtnDis").css("pointer-events", "auto");
+	 	 }else{
+	 		$(".remBtnDis").css("pointer-events", "none");
+		 }
 
     if ($('#useAnchorDateId').is(':checked')) {
       $("#anchorTextId").attr('required', true);
@@ -4216,8 +4222,10 @@ if(document.getElementById("singleSelect").checked==true){
 
     if ($('.value-picker').length > 2) {
       $(".remBtnDis").removeClass("hide");
+      $(".remBtnDis").css("pointer-events", "auto");
     } else {
       $(".remBtnDis").addClass("hide");
+      $(".remBtnDis").css("pointer-events", "none");
     }
     $('#' + count).find('input:first').focus();
   }
@@ -4232,8 +4240,10 @@ if(document.getElementById("singleSelect").checked==true){
       $(".value-picker").parents("form").validator();
       if ($('.value-picker').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
     }
   }
@@ -4276,8 +4286,10 @@ if(document.getElementById("singleSelect").checked==true){
       $(".text-scale").parents("form").validator();
       if ($('.text-scale').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
       if ($('.text-scale').length == 8) {
         $(".text-scale:last").find('span.addBtnDis').remove();
@@ -4303,8 +4315,10 @@ if(document.getElementById("singleSelect").checked==true){
       $(".text-scale").parents("form").validator();
       if ($('.text-scale').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
       $("#textScalePositionId").val($('.text-scale').length);
       if ($('.text-scale').length == 8) {
@@ -4391,8 +4405,10 @@ if(document.getElementById("singleSelect").checked==true){
     $(".text-choice").parents("form").validator();
     if ($('.text-choice').length > 2) {
       $(".remBtnDis").removeClass("hide");
+      $(".remBtnDis").css("pointer-events", "auto");
     } else {
       $(".remBtnDis").addClass("hide");
+      $(".remBtnDis").css("pointer-events", "none");
     }
     $('#' + choiceCount).find('input:first').focus();
     if (selectionStyle == 'Single') {
@@ -4411,8 +4427,10 @@ if(document.getElementById("singleSelect").checked==true){
       $(".text-choice").parents("form").validator();
       if ($('.text-choice').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
     }
   }
@@ -4485,8 +4503,10 @@ if(document.getElementById("singleSelect").checked==true){
 
     if ($('.image-choice').length > 2) {
       $(".remBtnDis").removeClass("hide");
+      $(".remBtnDis").css("pointer-events", "auto");
     } else {
       $(".remBtnDis").addClass("hide");
+      $(".remBtnDis").css("pointer-events", "none");
     }
     $('#' + imageCount).find('input:first').focus();
   }
@@ -4500,8 +4520,10 @@ if(document.getElementById("singleSelect").checked==true){
       $(".image-choice").parents("form").validator();
       if ($('.image-choice').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
     }
   }
