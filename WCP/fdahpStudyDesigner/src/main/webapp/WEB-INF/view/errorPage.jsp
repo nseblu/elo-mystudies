@@ -31,7 +31,7 @@
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="/studybuilder/vendor/boostrap/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
  
  
     <!-- Theme Responsive CSS -->
@@ -40,7 +40,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/studybuilder/css/theme.css">
     <link rel="stylesheet" href="/studybuilder/css/style.css">
-
+  
     <!-- Vendor -->
     <script src="/studybuilder/vendor/jquery/jquery-3.1.1.min.js"></script>
     <script src="/studybuilder/vendor/summernote/popper.min.js"></script>
@@ -48,6 +48,10 @@
   
    
 <style>
+html, body {
+  height: 100%;
+}
+
  header.header {
 	 width: 100%;
 	 height: 50px;
@@ -103,9 +107,14 @@
   min-height: 100%;
 }
 
-html, body {
-  height: 100%;
-}
+.invalidLink_text 
+	{
+	color: #353a3e;
+    font-size: 100%;
+    font-weight: 600; 
+	}
+
+
 </style>
   </head>
   <body>
@@ -122,6 +131,7 @@ html, body {
           />
         </a>
         </div>
+       
     </div>
 </header>
 
@@ -131,10 +141,8 @@ html, body {
         <span class="display-1 d-block">
           <img src="/studybuilder/images/icons/ErrorIcon.svg" alt="Page not found here" />
         </span>
-        <div class="custom__font_error">404</div>
-        <div class="mb-4 custom_sub_font">
-		<div class="custom__font_error">Oops 403!</div>
-    	<span class="subTxt">Access is denied <br> You do not have permission to access this page!</span>
+        <div class="invalidLink_text mt-4 mb-4">This link is no longer valid to be used. 
+                Please contact the system admin for assistance with your account or sign in if already registered.
         </div>
       </div>
 </div>
@@ -143,6 +151,4 @@ html, body {
 </html>
 
 
-
-   
 
