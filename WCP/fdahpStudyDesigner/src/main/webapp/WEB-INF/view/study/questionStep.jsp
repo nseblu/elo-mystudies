@@ -3473,8 +3473,9 @@
       });
      }  
 
-
-     if ($('#textchoiceOtherId').is(':checked')) {
+      var responseType = $("#rlaResonseType").val();
+      if (responseType == 'Text Choice') {
+       if ($('#textchoiceOtherId').is(':checked')) {
          $('.textchoiceOtherCls').show();
          $('.textchoiceOtherCls').find('input:text,select').attr('required', true);
          $('.OtherOptionCls').find('input:text,select').removeAttr('required');
@@ -3500,7 +3501,8 @@
 	 		$(".remBtnDis").css("pointer-events", "none");
 		 }
        }
-	  
+      }
+      
       $('#textchoiceOtherId').click(function () {
         if ($(this).is(':checked')) {
         	 $('.text-choice').each(function () {
