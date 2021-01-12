@@ -119,6 +119,7 @@ export class AuthInterceptor implements HttpInterceptor {
         )
         .set('correlationId', sessionStorage.getItem('correlationId') || '')
         .set('appId', this.appId)
+        .set('appName', '')
         .set('mobilePlatform', this.mobilePlatform)
         .set('source', this.source)
         .set('userId', sessionStorage.getItem('userId') || '')
@@ -144,6 +145,7 @@ export class AuthInterceptor implements HttpInterceptor {
           `Bearer ${sessionStorage.getItem('accessToken') || ''} `,
         )
         .set('correlationId', sessionStorage.getItem('correlationId') || '')
+
         .set('appId', this.appId)
         .set('mobilePlatform', this.mobilePlatform)
         .set('source', this.source)
