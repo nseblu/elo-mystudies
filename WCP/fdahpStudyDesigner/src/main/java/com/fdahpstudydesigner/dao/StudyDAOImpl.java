@@ -5440,7 +5440,8 @@ public class StudyDAOImpl implements StudyDAO {
                     .setInteger("id", Integer.parseInt(studyId))
                     .uniqueResult();
         if (studyBo != null) {
-          if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_PUBLISH)) {
+          // if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_PUBLISH)) {
+          /*
             studyBo.setStatus(FdahpStudyDesignerConstants.STUDY_PRE_PUBLISH);
             studyBo.setStudyPreActiveFlag(true);
             session.update(studyBo);
@@ -5470,17 +5471,20 @@ public class StudyDAOImpl implements StudyDAO {
             notificationBO.setCreatedOn(FdahpStudyDesignerUtil.getCurrentDateTime());
             notificationBO.setNotificationDone(true);
             session.save(notificationBO);
-          } else if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_UNPUBLISH)) {
-            studyBo.setStatus(FdahpStudyDesignerConstants.STUDY_PRE_LAUNCH);
-            studyBo.setStudyPreActiveFlag(false);
-            session.update(studyBo);
-            message = FdahpStudyDesignerConstants.SUCCESS;
-            activity = "Study Unpublished.";
-            activitydetails =
-                "Study Unpublished as Upcoming Study.(Study ID = "
-                    + studyBo.getCustomStudyId()
-                    + ", Status = Unpublished)";
-          } else if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_LUNCH)
+          */
+          // } else if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_UNPUBLISH))
+          // {/*
+          /*studyBo.setStatus(FdahpStudyDesignerConstants.STUDY_PRE_LAUNCH);
+          studyBo.setStudyPreActiveFlag(false);
+          session.update(studyBo);
+          message = FdahpStudyDesignerConstants.SUCCESS;
+          activity = "Study Unpublished.";
+          activitydetails =
+              "Study Unpublished as Upcoming Study.(Study ID = "
+                  + studyBo.getCustomStudyId()
+                  + ", Status = Unpublished)";*/
+          // */}
+          if (buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_LUNCH)
               || buttonText.equalsIgnoreCase(FdahpStudyDesignerConstants.ACTION_UPDATES)) {
             studyBo.setStudyPreActiveFlag(false);
             studyBo.setStatus(FdahpStudyDesignerConstants.STUDY_ACTIVE);

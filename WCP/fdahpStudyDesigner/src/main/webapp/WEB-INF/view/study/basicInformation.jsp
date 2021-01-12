@@ -180,7 +180,6 @@
             <div class="help-block with-errors red-txt"></div>
           </div>
         </div>
-      
         <div class="col-md-6 pr-none">
           <div class="gray-xs-f mb-xs">
             Support email (for participants)
@@ -198,9 +197,8 @@
           </div>
         </div>
       </div>
-
       	<div class="col-md-12 p-none mb-xxlg">
-        <div class="col-md-6 pr-none thumbImageDIv" style="margin-left:-13px">
+         <div class="col-md-6 pr-none thumbImageDIv" style="margin-left:-13px">
           <div class="gray-xs-f mb-sm">
             Study Thumbnail Image
             <span class="filled-tooltip"
