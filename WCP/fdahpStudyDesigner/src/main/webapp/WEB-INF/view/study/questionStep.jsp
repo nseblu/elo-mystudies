@@ -3567,24 +3567,32 @@
       </c:if>
 
       if ($('.value-picker').length > 2) {
+    	  $('.ValuePickerContainer').find(".remBtnDis").css("pointer-events", "auto");
         $('.ValuePickerContainer').find(".remBtnDis").removeClass("hide");
       } else {
+    	  $('.ValuePickerContainer').find(".remBtnDis").css("pointer-events", "none");
         $('.ValuePickerContainer').find(".remBtnDis").addClass("hide");
       }
       if ($('.text-scale').length > 2) {
+    	  $('.TextScaleContainer').find(".remBtnDis").css("pointer-events", "auto");
         $('.TextScaleContainer').find(".remBtnDis").removeClass("hide");
       } else {
+    	  $('.TextScaleContainer').find(".remBtnDis").css("pointer-events", "none");
         $('.TextScaleContainer').find(".remBtnDis").addClass("hide");
       }
       if ($('.text-choice').length > 2) {
+    	  $('.TextChoiceContainer').find(".remBtnDis").css("pointer-events", "auto");
         $('.TextChoiceContainer').find(".remBtnDis").removeClass("hide");
       } else {
+    	  $('.TextChoiceContainer').find(".remBtnDis").css("pointer-events", "none");
         $('.TextChoiceContainer').find(".remBtnDis").addClass("hide");
       }
       if ($('.image-choice').length > 2) {
         $('.ImageChoiceContainer').find(".remBtnDis").removeClass("hide");
+        $('.ImageChoiceContainer').find(".remBtnDis").css("pointer-events", "auto");
       } else {
         $('.ImageChoiceContainer').find(".remBtnDis").addClass("hide");
+        $('.ImageChoiceContainer').find(".remBtnDis").css("pointer-events", "none");
       }
       $(".menuNav li.active").removeClass('active');
       $(".sixthQuestionnaires").addClass('active');
