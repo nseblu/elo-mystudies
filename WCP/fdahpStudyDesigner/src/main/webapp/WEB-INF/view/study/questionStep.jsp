@@ -5622,8 +5622,10 @@
       $(".value-picker").parents("form").validator();
       if ($('.value-picker').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
       $('#' + count).find('input:first').focus();
     }
@@ -5638,8 +5640,10 @@
         $(".value-picker").parents("form").validator();
         if ($('.value-picker').length > 2) {
           $(".remBtnDis").removeClass("hide");
+          $(".remBtnDis").css("pointer-events", "auto");
         } else {
           $(".remBtnDis").addClass("hide");
+          $(".remBtnDis").css("pointer-events", "none");
         }
       }
     }
@@ -5697,8 +5701,10 @@
         $(".text-scale").parents("form").validator();
         if ($('.text-scale').length > 2) {
           $(".remBtnDis").removeClass("hide");
+          $(".remBtnDis").css("pointer-events", "auto");
         } else {
           $(".remBtnDis").addClass("hide");
+          $(".remBtnDis").css("pointer-events", "none");
         }
         if ($('.text-scale').length == 8) {
           $(".text-scale:last").find('span.addBtnDis').remove();
@@ -5724,8 +5730,10 @@
         $(".text-scale").parents("form").validator();
         if ($('.text-scale').length > 2) {
           $(".remBtnDis").removeClass("hide");
+          $(".remBtnDis").css("pointer-events", "auto");
         } else {
           $(".remBtnDis").addClass("hide");
+          $(".remBtnDis").css("pointer-events", "none");
         }
         $("#textScalePositionId").val($('.text-scale').length);
         if ($('.text-scale').length == 8) {
@@ -5957,8 +5965,10 @@
 
       if ($('.image-choice').length > 2) {
         $(".remBtnDis").removeClass("hide");
+        $(".remBtnDis").css("pointer-events", "auto");
       } else {
         $(".remBtnDis").addClass("hide");
+        $(".remBtnDis").css("pointer-events", "none");
       }
       $('#' + imageCount).find('input:first').focus();
     }
@@ -5972,8 +5982,10 @@
         $(".image-choice").parents("form").validator();
         if ($('.image-choice').length > 2) {
           $(".remBtnDis").removeClass("hide");
+          $(".remBtnDis").css("pointer-events", "auto");
         } else {
           $(".remBtnDis").addClass("hide");
+          $(".remBtnDis").css("pointer-events", "none");
         }
       }
     }
