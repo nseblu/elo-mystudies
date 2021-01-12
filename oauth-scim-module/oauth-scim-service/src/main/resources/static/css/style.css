@@ -483,8 +483,7 @@ body#body-container {
 }
 .width__110 { 
   width: 110px !important;
-  display: inline-block !important; 
-  margin-left: 10% !important;
+  display: inline-block !important;
 } 
   
 .loading_div { position: absolute !important;
