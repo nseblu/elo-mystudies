@@ -895,7 +895,7 @@
     $('#cancelButtonId').hide();
     $('#doneButtonId').show();
     $('.force-overflow__').html('');
-    var learn_more_desc = $('learnMoreTextId').summernote('code');
+    var learn_more_desc = $('#learnMoreTextId').summernote('code');
     var data = '<div class="pp__title">Learn more</div>'
         + '<div class="pp__ul mt-xlg">';
     if (learn_more_desc != ' ' && learn_more_desc != '' && learn_more_desc != null
