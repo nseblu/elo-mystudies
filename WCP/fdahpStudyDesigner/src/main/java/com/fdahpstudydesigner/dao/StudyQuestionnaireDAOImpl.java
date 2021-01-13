@@ -3580,7 +3580,7 @@ public class StudyQuestionnaireDAOImpl implements StudyQuestionnaireDAO {
                 questionsBo.getQuestionResponseSubTypeList()) {
               if (((questionResponseSubTypeBo.getText() != null)
                       && !questionResponseSubTypeBo.getText().isEmpty())
-                  && ((questionResponseSubTypeBo.getValue() != null)
+                  || ((questionResponseSubTypeBo.getValue() != null)
                       && !questionResponseSubTypeBo.getValue().isEmpty())) {
                 String fileName;
                 if (questionResponseSubTypeBo.getImageFile() != null) {
@@ -4172,7 +4172,7 @@ public class StudyQuestionnaireDAOImpl implements StudyQuestionnaireDAO {
                     questionnairesStepsBo.getQuestionResponseSubTypeList()) {
                   if (((questionResponseSubTypeBo.getText() != null)
                           && !questionResponseSubTypeBo.getText().isEmpty())
-                      && ((questionResponseSubTypeBo.getValue() != null)
+                      || ((questionResponseSubTypeBo.getValue() != null)
                           && !questionResponseSubTypeBo.getValue().isEmpty())) {
                     String fileName;
                     if (questionResponseSubTypeBo.getImageFile() != null) {
