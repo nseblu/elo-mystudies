@@ -8,16 +8,37 @@
 
 package com.google.cloud.healthcare.fdamystudies.beans;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class ErrorBean {
 
   private Integer code = 0;
   private String message = "";
   private String siteId;
+
+  public String getSiteId() {
+    return siteId;
+  }
+
+  public void setSiteId(String siteId) {
+    this.siteId = siteId;
+  }
+
+  public Integer getCode() {
+    return code;
+  }
+
+  public ErrorBean setCode(Integer code) {
+    this.code = code;
+    return this;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public ErrorBean setMessage(String message) {
+    this.message = message;
+    return this;
+  }
 
   public ErrorBean() {}
 
