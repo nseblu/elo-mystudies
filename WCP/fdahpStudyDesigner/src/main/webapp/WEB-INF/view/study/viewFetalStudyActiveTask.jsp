@@ -1302,5 +1302,7 @@
       $('#logoutCsrf').val('${_csrf.token}');
       $('#logoutCsrf').prop('name', '${_csrf.parameterName}');
     }
+
+    });
     //# sourceURL=filename1.js
   </script>
