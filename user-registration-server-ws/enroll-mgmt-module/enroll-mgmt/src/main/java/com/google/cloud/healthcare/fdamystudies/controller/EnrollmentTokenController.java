@@ -23,6 +23,7 @@ import com.google.cloud.healthcare.fdamystudies.config.ApplicationPropertyConfig
 import com.google.cloud.healthcare.fdamystudies.mapper.AuditEventMapper;
 import com.google.cloud.healthcare.fdamystudies.service.CommonService;
 import com.google.cloud.healthcare.fdamystudies.service.EnrollmentTokenService;
+import com.google.cloud.healthcare.fdamystudies.service.StudyStateService;
 import com.google.cloud.healthcare.fdamystudies.util.EnrollmentManagementUtil;
 import com.google.cloud.healthcare.fdamystudies.util.ErrorCode;
 import com.google.cloud.healthcare.fdamystudies.util.ErrorResponseUtil;
@@ -58,6 +59,8 @@ public class EnrollmentTokenController {
   @Autowired private EnrollmentManagementUtil enrollManagementUtil;
 
   @Autowired EnrollAuditEventHelper enrollAuditEventHelper;
+
+  @Autowired StudyStateService studyStateService;
 
   @PostMapping(value = "/validateEnrollmentToken", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> validateEnrollmentToken(
@@ -117,8 +120,11 @@ public class EnrollmentTokenController {
       return null;
     }
 
+    String siteId = studyStateService.getSiteId(userId, enrollmentBean.getToken());
+
     errorBean = new ErrorBean();
     errorBean.setCode(ErrorCode.EC_200.code());
+    errorBean.setSiteId(siteId);
     errorBean.setMessage(ErrorResponseUtil.ErrorCodes.SUCCESS.getValue().toLowerCase());
 
     logger.info("EnrollmentTokenController validateEnrollmentToken() - Ends ");
