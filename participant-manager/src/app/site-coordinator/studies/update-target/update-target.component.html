@@ -15,7 +15,8 @@
             #target="ngModel"
             min="0"
             max="99999"
-            oninput="validity.valid||(value='');"
+            maxLength="5"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
           />
           <div *ngIf="target.invalid && (target.dirty || target.touched)">
             <span
