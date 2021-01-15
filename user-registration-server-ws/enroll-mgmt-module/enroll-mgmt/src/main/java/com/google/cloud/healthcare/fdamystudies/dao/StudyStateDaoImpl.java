@@ -112,7 +112,6 @@ public class StudyStateDaoImpl implements StudyStateDao {
       participantStudyRoot = criteriaUpdate.from(ParticipantStudyEntity.class);
       criteriaUpdate.set("status", EnrollmentStatus.WITHDRAWN.getStatus());
       criteriaUpdate.set("withdrawalDate", new Timestamp(Instant.now().toEpochMilli()));
-
       predicates.add(
           criteriaBuilder.equal(participantStudyRoot.get("participantId"), participantId));
       predicates.add(criteriaBuilder.equal(participantStudyRoot.get("study"), studyEntity));

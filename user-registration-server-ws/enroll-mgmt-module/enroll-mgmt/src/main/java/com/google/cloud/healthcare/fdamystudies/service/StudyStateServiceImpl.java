@@ -163,7 +163,6 @@ public class StudyStateServiceImpl implements StudyStateService {
         participantStudyEntity.setBookmark(studyBean.getBookmarked());
         participantStudyEntity.setCompletion(studyBean.getCompletion());
         participantStudyEntity.setAdherence(studyBean.getAdherence());
-        participantStudyEntity.setUserDetails(user);
 
         placeHolder.put("study_state_value", participantStudyEntity.getStatus());
         participantStudies.add(participantStudyEntity);
@@ -194,43 +193,56 @@ public class StudyStateServiceImpl implements StudyStateService {
 
     List<StudyStateBean> serviceResponseList = new ArrayList<>();
 
-    if (userId != null) {
-      UserDetailsEntity userDetailsEntity = userRegAdminUserDao.getRecord(userId);
-      if (userDetailsEntity == null) {
-        throw new ErrorCodeException(ErrorCode.USER_NOT_FOUND);
-      }
+    UserDetailsEntity userDetailsEntity = userRegAdminUserDao.getRecord(userId);
+    if (userDetailsEntity == null) {
+      throw new ErrorCodeException(ErrorCode.USER_NOT_FOUND);
+    }
 
-      List<ParticipantStudyEntity> participantStudiesList =
-          participantStudiesInfoDao.getParticipantStudiesInfo(userDetailsEntity.getUserId());
-      if (participantStudiesList != null && !participantStudiesList.isEmpty()) {
-        for (ParticipantStudyEntity participantStudiesBO : participantStudiesList) {
-          StudyStateBean studyStateBean = BeanUtil.getBean(StudyStateBean.class);
-          if (participantStudiesBO.getParticipantRegistrySite() != null) {
-            String enrolledTokenVal =
-                studyStateDao.getEnrollTokenForParticipant(
-                    participantStudiesBO.getParticipantRegistrySite().getId());
-            studyStateBean.setHashedToken(
-                EnrollmentManagementUtil.getHashedValue(enrolledTokenVal.toUpperCase()));
-          }
-          if (participantStudiesBO.getStudy() != null) {
-            studyStateBean.setStudyId(participantStudiesBO.getStudy().getCustomId());
-          }
-          studyStateBean.setStatus(participantStudiesBO.getStatus());
-          if (participantStudiesBO.getParticipantId() != null) {
-            studyStateBean.setParticipantId(participantStudiesBO.getParticipantId());
-          }
-          studyStateBean.setCompletion(participantStudiesBO.getCompletion());
-          studyStateBean.setBookmarked(participantStudiesBO.getBookmark());
-          studyStateBean.setAdherence(participantStudiesBO.getAdherence());
-          if (participantStudiesBO.getEnrolledDate() != null) {
-            studyStateBean.setEnrolledDate(
-                MyStudiesUserRegUtil.getIsoDateFormat(participantStudiesBO.getEnrolledDate()));
-          }
-          if (participantStudiesBO.getSite() != null) {
-            studyStateBean.setSiteId(participantStudiesBO.getSite().getId().toString());
-          }
-          serviceResponseList.add(studyStateBean);
+    List<ParticipantStudyEntity> participantStudiesList =
+        participantStudiesInfoDao.getParticipantStudiesInfo(userDetailsEntity.getUserId());
+    if (participantStudiesList != null && !participantStudiesList.isEmpty()) {
+      for (ParticipantStudyEntity participantStudy : participantStudiesList) {
+        StudyStateBean studyStateBean = BeanUtil.getBean(StudyStateBean.class);
+        if (participantStudy.getParticipantRegistrySite() != null) {
+          String enrolledTokenVal =
+              studyStateDao.getEnrollTokenForParticipant(
+                  participantStudy.getParticipantRegistrySite().getId());
+          studyStateBean.setHashedToken(
+              EnrollmentManagementUtil.getHashedValue(enrolledTokenVal.toUpperCase()));
         }
+
+        if (participantStudy.getStudy() != null) {
+          studyStateBean.setStudyId(participantStudy.getStudy().getCustomId());
+        }
+
+        if (participantStudy.getParticipantId() != null) {
+          studyStateBean.setParticipantId(participantStudy.getParticipantId());
+        }
+        studyStateBean.setCompletion(participantStudy.getCompletion());
+        studyStateBean.setBookmarked(participantStudy.getBookmark());
+        studyStateBean.setAdherence(participantStudy.getAdherence());
+        if (participantStudy.getEnrolledDate() != null) {
+          studyStateBean.setEnrolledDate(
+              MyStudiesUserRegUtil.getIsoDateFormat(participantStudy.getEnrolledDate()));
+        }
+        if (participantStudy.getSite() != null) {
+          studyStateBean.setSiteId(participantStudy.getSite().getId().toString());
+        }
+        String enrollmentHistoryStatus = null;
+        if (StringUtils.isNotEmpty(studyStateBean.getSiteId())
+            && StringUtils.isNotEmpty(participantStudy.getParticipantRegistrySite().getId())) {
+          enrollmentHistoryStatus =
+              participantEnrollmentHistoryRepository.findBySiteIdAndParticipantRegistryId(
+                  studyStateBean.getSiteId(),
+                  participantStudy.getParticipantRegistrySite().getId());
+        }
+        String enrollmentStatus =
+            StringUtils.isNotEmpty(enrollmentHistoryStatus)
+                    && EnrollmentStatus.WITHDRAWN.getStatus().equals(enrollmentHistoryStatus)
+                ? EnrollmentStatus.WITHDRAWN.getStatus()
+                : participantStudy.getStatus();
+        studyStateBean.setStatus(enrollmentStatus);
+        serviceResponseList.add(studyStateBean);
       }
     }
 
@@ -243,9 +255,8 @@ public class StudyStateServiceImpl implements StudyStateService {
       String participantId, String studyId, boolean delete, AuditLogEventRequest auditRequest) {
     logger.info("StudyStateServiceImpl withdrawFromStudy() - Starts ");
     WithDrawFromStudyRespBean respBean = null;
-    String message = MyStudiesUserRegUtil.ErrorCodes.FAILURE.getValue();
 
-    message = studyStateDao.withdrawFromStudy(participantId, studyId, delete);
+    String message = studyStateDao.withdrawFromStudy(participantId, studyId, delete);
     if (message.equalsIgnoreCase(MyStudiesUserRegUtil.ErrorCodes.SUCCESS.getValue())) {
       Optional<ParticipantStudyEntity> participantStudy =
           participantStudyRepository.findByParticipantId(participantId);
@@ -256,8 +267,7 @@ public class StudyStateServiceImpl implements StudyStateService {
       ParticipantRegistrySiteEntity participantRegistrySite = optParticipantRegistrySite.get();
       participantRegistrySite.setOnboardingStatus(OnboardingStatus.DISABLED.getCode());
       participantRegistrySite.setDisabledDate(new Timestamp(Instant.now().toEpochMilli()));
-      participantRegistrySite =
-          participantRegistrySiteRepository.saveAndFlush(participantRegistrySite);
+      participantRegistrySiteRepository.saveAndFlush(participantRegistrySite);
 
       participantEnrollmentHistoryRepository.updateWithdrawalDateAndStatus(
           participantStudy.get().getUserDetails().getId(),
