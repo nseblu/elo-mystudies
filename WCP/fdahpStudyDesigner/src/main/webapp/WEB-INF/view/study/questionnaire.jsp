@@ -1791,10 +1791,10 @@
   }
   $(document).ready(function () {
     $("#startDate").keydown(function (event) {
-      event.preventDefault();
+     // event.preventDefault();
     });
     $("#time0").keydown(function (event) {
-      event.preventDefault();
+     // event.preventDefault();
     });
     $("#dailyxdaysId").change(function () {
       dailyXday = $("#dailyxdaysId").val();
@@ -2844,7 +2844,7 @@
         var timeId = '#time' + id;
         $(timeId).data("DateTimePicker").minDate(false);
         $(timeId).keydown(function (event) {
-          event.preventDefault();
+         // event.preventDefault();
         });
         if (dt) {
           if (dt != today) {
