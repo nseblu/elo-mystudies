@@ -1650,7 +1650,7 @@
         });
         if (!chkVal) {
           thisAttr.parents('.dailyTimeDiv').find('.dailyClock').parent().find(".help-block").append(
-              	$("<ul><li> </li></ul>").attr("class","list-unstyled").text("Please select a time that has not yet added."));
+              	$("<ul><li> </li></ul>").attr("class","list-unstyled").attr("style","white-space:nowrap").text("Please select a time that has not yet added."));
         } else {
           thisAttr.parents('.dailyTimeDiv').find('.dailyClock').parent().find(".help-block").empty();
         }
