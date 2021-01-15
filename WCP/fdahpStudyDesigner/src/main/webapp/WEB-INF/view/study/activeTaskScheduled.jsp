@@ -1649,8 +1649,11 @@
           }
         });
         if (!chkVal) {
+        	var test =thisAttr.parents('.dailyTimeDiv').find('.dailyClock').parent().find(".help-block").find("ul").length;
+            if(test === 0){
           thisAttr.parents('.dailyTimeDiv').find('.dailyClock').parent().find(".help-block").append(
               	$("<ul><li> </li></ul>").attr("class","list-unstyled").attr("style","white-space:nowrap").text("Please select a time that has not yet added."));
+            }
         } else {
           thisAttr.parents('.dailyTimeDiv').find('.dailyClock').parent().find(".help-block").empty();
         }
