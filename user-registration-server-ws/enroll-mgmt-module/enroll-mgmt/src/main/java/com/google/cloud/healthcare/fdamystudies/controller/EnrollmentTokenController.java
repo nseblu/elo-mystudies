@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.core.Context;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,6 +151,12 @@ public class EnrollmentTokenController {
 
     try {
       auditRequest.setStudyId(enrollmentBean.getStudyId());
+
+      logger.info(
+          "userId="
+              + userId
+              + "study Request="
+              + ReflectionToStringBuilder.toString(enrollmentBean));
 
       if (enrollmentTokenfService.studyExists(enrollmentBean.getStudyId())) {
         if (enrollmentTokenfService.enrollmentTokenRequired(enrollmentBean.getStudyId())) {
