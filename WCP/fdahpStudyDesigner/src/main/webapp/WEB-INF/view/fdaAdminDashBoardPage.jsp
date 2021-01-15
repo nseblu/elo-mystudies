@@ -56,7 +56,7 @@
   height: 13px;
   display: inline-block;
   position: relative;
-  bottom: -7px;
+  bottom: -8px;
   left: 0px;
   transition: 0.4s ease;
   margin-top: 8px;
