@@ -1790,12 +1790,7 @@
     scheduletype = $('input[name="scheduleType"]:checked').val();
   }
   $(document).ready(function () {
-    $("#startDate").keydown(function (event) {
-     // event.preventDefault();
-    });
-    $("#time0").keydown(function (event) {
-     // event.preventDefault();
-    });
+   
     $("#dailyxdaysId").change(function () {
       dailyXday = $("#dailyxdaysId").val();
       console.log(dailyXday)
@@ -2843,9 +2838,7 @@
         var id = $(this).attr("id");
         var timeId = '#time' + id;
         $(timeId).data("DateTimePicker").minDate(false);
-        $(timeId).keydown(function (event) {
-         // event.preventDefault();
-        });
+       
         if (dt) {
           if (dt != today) {
             $(timeId).data("DateTimePicker").minDate(false);
