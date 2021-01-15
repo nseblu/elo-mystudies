@@ -2458,12 +2458,6 @@ if(document.getElementById("singleSelect").checked==true){
 }
   $(document).ready(function () {
 
-	  if ($('.text-choice').length > 2){
-	     	 $(".remBtnDis").css("pointer-events", "auto");
-	 	 }else{
-	 		$(".remBtnDis").css("pointer-events", "none");
-		 }
-
     if ($('#useAnchorDateId').is(':checked')) {
       $("#anchorTextId").attr('required', true);
     } else {
