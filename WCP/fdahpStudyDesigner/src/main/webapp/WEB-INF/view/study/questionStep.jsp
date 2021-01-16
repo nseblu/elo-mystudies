@@ -3548,9 +3548,15 @@
                  var id = $(this).attr("id");
                  var displayText = $("#displayTextChoiceText" + id).val();
                  var displayValue = $("#displayTextChoiceValue" + id).val();
+                 var display_description = $("#displayTextChoiceDescription" + id).val();
+        			var display_exclusive = $("#exclusiveId" + id).val();
 
-	          if ($('.text-choice').length == 2 && typeof displayText!=='undefined' && typeof displayValue!=='undefined' && 
-	                  displayText.trim().length <= 0 && displayValue.trim().length <= 0) {
+	          if ($('.text-choice').length == 2 && typeof displayText!=='undefined'
+		           && typeof displayValue!=='undefined' && typeof display_description!=='undefined' 
+			           && typeof display_exclusive!=='undefined'
+	                  displayText.trim().length <= 0 && displayValue.trim().length <= 0 && 
+	                  display_description.trim().length <= 0
+	                  display_description.trim().length <= 0) {
 	        	  $(this).remove();
 	          }
         	});
