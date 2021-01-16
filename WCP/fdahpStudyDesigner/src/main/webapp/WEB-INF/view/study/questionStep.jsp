@@ -3475,9 +3475,21 @@
            	  var id = $(this).attr("id");
                  var display_text = $("#displayTextChoiceText" + id).val();
                  var display_value = $("#displayTextChoiceValue" + id).val();
+                 var display_description = $("#displayTextChoiceDescription" + id).val();
+                 var display_exclusive = $("#exclusiveId" + id).val();
+                 
 
-       			if($('.text-choice').length > 1 && display_text=="" && display_value==""){
-       				$(this).remove();
+       			if($('.text-choice').length > 1 && display_text=="" && display_value=="" && display_description==""){
+
+           			if (${empty questionnairesStepsBo.questionReponseTypeBo.selectionStyle || 
+           		     questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Single'}) {
+						if(display_exclusive==""){
+							$(this).remove();
+						}
+           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
+           				   $(this).remove();
+           			}
+       				
        			}  
              });
             }  
@@ -3503,10 +3515,20 @@
            	  var id = $(this).attr("id");
                  var display_text = $("#displayTextChoiceText" + id).val();
                  var display_value = $("#displayTextChoiceValue" + id).val();
+                 var display_description = $("#displayTextChoiceDescription" + id).val();
+       			var display_exclusive = $("#exclusiveId" + id).val();
 
-       			if($('.text-choice').length > 2 && display_text=="" && display_value==""){
-       				$(this).remove();
-       			}  
+       			if($('.text-choice').length > 2 && display_text=="" && display_value=="" && display_description==""){
+
+           			if (${empty questionnairesStepsBo.questionReponseTypeBo.selectionStyle || 
+           		     questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Single'}) {
+						if(display_exclusive==""){
+							$(this).remove();
+						}
+           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
+           				   $(this).remove();
+           			}
+       			}   
              });
             }  
 
@@ -3517,7 +3539,8 @@
 		 }
        }
       }
-      
+
+     
       $('#textchoiceOtherId').click(function () {
         if ($(this).is(':checked')) {
         	 $('.text-choice').each(function () {
@@ -4882,12 +4905,32 @@
               children[i].selectedIndex = 0;
             }
             $('.selectpicker').selectpicker('refresh');
+
+            
           }
           $("#timeIntervalStepId").val(1);
           $("#timeIntervalDefaultId").val("00:01");
 
           $("#textScalePositionId").val(2);
           $("#scaleDefaultValueId").val(1);
+          if (responseType == 'Text Choice') {
+
+        	  if ($('#textchoiceOtherId').is(':checked')) {
+	                if ($('.text-choice').length > 1){
+	               	 $(".remBtnDis").css("pointer-events", "auto");
+	           	 	}else{
+	           		 $(".remBtnDis").css("pointer-events", "none");
+	                }
+	           	 
+	              } else {
+	
+	                if ($('.text-choice').length > 2){
+	       	     	 $(".remBtnDis").css("pointer-events", "auto");
+	       	 	 	}else{
+	       	 		$(".remBtnDis").css("pointer-events", "none");
+	       	 	 	}
+	              }
+          }
           if (responseType == 'Text Scale') {
             $("#scalevertical").attr("checked", true);
           } else if (responseType == 'Scale' || responseType == 'Continuous Scale') {
