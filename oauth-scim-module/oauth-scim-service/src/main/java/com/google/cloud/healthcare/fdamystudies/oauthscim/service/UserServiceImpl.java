@@ -36,6 +36,7 @@ import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScim
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.PASSWORD_RESET_EMAIL_FAILED_FOR_LOCKED_ACCOUNT;
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.PASSWORD_RESET_EMAIL_SENT_FOR_LOCKED_ACCOUNT;
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.PASSWORD_RESET_FAILED;
+import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.PASSWORD_RESET_SUCCEEDED;
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.SIGNIN_FAILED_EXPIRED_PASSWORD;
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.SIGNIN_FAILED_EXPIRED_TEMPORARY_PASSWORD;
 import static com.google.cloud.healthcare.fdamystudies.oauthscim.common.AuthScimEvent.SIGNIN_FAILED_INVALID_PASSWORD;
@@ -224,7 +225,6 @@ public class UserServiceImpl implements UserService {
       }
     }
 
-    Integer accountStatusBeforePasswordReset = userEntity.getStatus();
     String tempPassword = PasswordGenerator.generate(TEMP_PASSWORD_LENGTH);
     EmailResponse emailResponse =
         sendPasswordResetEmail(resetPasswordRequest, tempPassword, auditRequest, appName);
@@ -328,10 +328,14 @@ public class UserServiceImpl implements UserService {
     userInfo.remove(ACCOUNT_LOCK_EMAIL_TIMESTAMP);
     userInfo.remove(ACCOUNT_LOCKED_PASSWORD);
     userInfo.put(LOGIN_ATTEMPTS, 0);
+    if (userEntity.getStatus() == UserAccountStatus.PASSWORD_RESET.getStatus()) {
+      auditHelper.logEvent(PASSWORD_RESET_SUCCEEDED, auditRequest);
+    } else {
+      auditHelper.logEvent(PASSWORD_CHANGE_SUCCEEDED, auditRequest);
+    }
     userEntity.setStatus(UserAccountStatus.ACTIVE.getStatus());
     userEntity.setUserInfo(userInfo);
     repository.saveAndFlush(userEntity);
-    auditHelper.logEvent(PASSWORD_CHANGE_SUCCEEDED, auditRequest);
     logger.exit("Your password has been updated successfully!");
     return new ChangePasswordResponse(MessageCode.CHANGE_PASSWORD_SUCCESS);
   }
