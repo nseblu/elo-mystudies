@@ -3554,9 +3554,9 @@
 	          if ($('.text-choice').length == 2 && typeof displayText!=='undefined'
 		           && typeof displayValue!=='undefined' && typeof display_description!=='undefined' 
 			           && typeof display_exclusive!=='undefined'
-	                  displayText.trim().length <= 0 && displayValue.trim().length <= 0 && 
-	                  display_description.trim().length <= 0 &&
-	                  display_exclusive.trim().length <= 0) {
+	                  displayText == "" && displayValue == "" && 
+	                  display_description == "" &&
+	                  display_exclusive == "") {
 	        	  $(this).remove();
 	          }
         	});
