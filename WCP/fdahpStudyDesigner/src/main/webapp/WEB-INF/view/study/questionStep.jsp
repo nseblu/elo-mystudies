@@ -3483,11 +3483,11 @@
 
            			if (${empty questionnairesStepsBo.questionReponseTypeBo.selectionStyle || 
            		     questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Single'}) {
-						if(display_exclusive==""){
+           			 $(this).remove();
+           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
+           				if(display_exclusive==""){
 							$(this).remove();
 						}
-           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
-           				   $(this).remove();
            			}
        				
        			}  
@@ -3522,11 +3522,11 @@
 
            			if (${empty questionnairesStepsBo.questionReponseTypeBo.selectionStyle || 
            		     questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Single'}) {
-						if(display_exclusive==""){
+           				$(this).remove();
+           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
+           				if(display_exclusive==""){
 							$(this).remove();
 						}
-           			}else if (${questionnairesStepsBo.questionReponseTypeBo.selectionStyle eq 'Multiple'}) {
-           				   $(this).remove();
            			}
        			}   
              });
