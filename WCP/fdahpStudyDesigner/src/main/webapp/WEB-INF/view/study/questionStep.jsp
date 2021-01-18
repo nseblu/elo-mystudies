@@ -4928,7 +4928,7 @@
 	           		 $(".remBtnDis").css("pointer-events", "none");
 	                }
 	           	 
-	              } else {
+	           } else {
 	
 	                if ($('.text-choice').length > 2){
 	       	     	 $(".remBtnDis").css("pointer-events", "auto");
@@ -5398,6 +5398,14 @@
 
         if ($('#textchoiceOtherId').is(':checked')) {
         	otherType="on";
+        	var otherIncludeText=$("input[name='questionReponseTypeBo.otherIncludeText']").val();
+        	var otherPlaceholderText=$("input[name='questionReponseTypeBo.otherPlaceholderText']").val();
+        	var otherParticipantFill=$("input[name='questionReponseTypeBo.otherParticipantFill']").val();
+        	
+        	
+        	questionReponseTypeBo.otherIncludeText=otherIncludeText;
+        	questionReponseTypeBo.otherPlaceholderText=otherPlaceholderText;
+        	questionReponseTypeBo.otherParticipantFill=otherParticipantFill;
         }else{
         	otherType="off"
          }
