@@ -29,6 +29,7 @@ import com.google.cloud.healthcare.fdamystudies.beans.User;
 import com.google.cloud.healthcare.fdamystudies.beans.UserAppDetails;
 import com.google.cloud.healthcare.fdamystudies.beans.UserAppPermissionRequest;
 import com.google.cloud.healthcare.fdamystudies.beans.UserRequest;
+import com.google.cloud.healthcare.fdamystudies.beans.UserResponse;
 import com.google.cloud.healthcare.fdamystudies.beans.UserSiteDetails;
 import com.google.cloud.healthcare.fdamystudies.beans.UserSitePermissionRequest;
 import com.google.cloud.healthcare.fdamystudies.beans.UserStudyDetails;
@@ -43,6 +44,7 @@ import com.google.cloud.healthcare.fdamystudies.common.ParticipantManagerEvent;
 import com.google.cloud.healthcare.fdamystudies.common.Permission;
 import com.google.cloud.healthcare.fdamystudies.config.AppPropertyConfig;
 import com.google.cloud.healthcare.fdamystudies.exceptions.ErrorCodeException;
+import com.google.cloud.healthcare.fdamystudies.mapper.AuditEventMapper;
 import com.google.cloud.healthcare.fdamystudies.mapper.UserMapper;
 import com.google.cloud.healthcare.fdamystudies.model.AppEntity;
 import com.google.cloud.healthcare.fdamystudies.model.AppPermissionEntity;
@@ -78,8 +80,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ManageUserServiceImpl implements ManageUserService {
@@ -108,6 +115,10 @@ public class ManageUserServiceImpl implements ManageUserService {
 
   @Autowired
   private UserAccountEmailSchedulerTaskRepository userAccountEmailSchedulerTaskRepository;
+
+  @Autowired private RestTemplate restTemplate;
+
+  @Autowired private OAuthService oauthService;
 
   @Override
   @Transactional
@@ -432,6 +443,7 @@ public class ManageUserServiceImpl implements ManageUserService {
         user.isSuperAdmin()
             ? updateSuperAdminDetails(user, auditRequest)
             : updateAdminDetails(user, auditRequest);
+
     String accessLevel = user.isSuperAdmin() ? CommonConstants.SUPER_ADMIN : CommonConstants.ADMIN;
     if (MessageCode.UPDATE_USER_SUCCESS.getMessage().equals(userResponse.getMessage())) {
       Map<String, String> map = new HashedMap<>();
@@ -468,6 +480,7 @@ public class ManageUserServiceImpl implements ManageUserService {
 
     UserRegAdminEntity adminDetails = optAdminDetails.get();
     adminDetails = UserMapper.fromUpdateUserRequest(user, adminDetails);
+    logoutAdminUser(adminDetails.getUrAdminAuthId(), auditRequest);
 
     userAdminRepository.saveAndFlush(adminDetails);
 
@@ -504,6 +517,8 @@ public class ManageUserServiceImpl implements ManageUserService {
     }
 
     adminDetails = UserMapper.fromUpdateUserRequest(user, adminDetails);
+    logoutAdminUser(adminDetails.getUrAdminAuthId(), auditRequest);
+
     userAdminRepository.saveAndFlush(adminDetails);
 
     deleteAppStudySiteLevelPermissions(user.getId());
@@ -534,6 +549,28 @@ public class ManageUserServiceImpl implements ManageUserService {
 
     logger.exit("Successfully updated admin details.");
     return new AdminUserResponse(MessageCode.UPDATE_USER_SUCCESS, adminDetails.getId());
+  }
+
+  private void logoutAdminUser(String authUserId, AuditLogEventRequest auditRequest) {
+    logger.entry("logoutAdminUser()");
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.add("Authorization", "Bearer " + oauthService.getAccessToken());
+    AuditEventMapper.addAuditEventHeaderParams(headers, auditRequest);
+
+    UserResponse userResponse = new UserResponse();
+    userResponse.setUserId(authUserId);
+
+    HttpEntity<UserResponse> requestEntity = new HttpEntity<>(userResponse, headers);
+    Map<String, String> map = new HashMap<>();
+    map.put("userId", authUserId);
+
+    ResponseEntity<UserResponse> responseEntity =
+        restTemplate.postForEntity(
+            appConfig.getAuthLogoutUserUrl(), requestEntity, UserResponse.class, map);
+
+    logger.exit(String.format("status=%d", responseEntity.getStatusCodeValue()));
   }
 
   private void deleteAppStudySiteLevelPermissions(String userId) {
