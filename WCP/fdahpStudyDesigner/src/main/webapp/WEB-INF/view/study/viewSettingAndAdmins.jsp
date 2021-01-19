@@ -49,7 +49,7 @@ table.dataTable thead th:last-child {
 
 					<div class="dis-line form-group mb-none">
 						<button type="button" class="btn btn-primary blue-btn"
-							id="completedId">Mark as Completed</button>
+							id="completedId">Mark as completed</button>
 					</div>
 				</c:if>
 			</div>
@@ -62,7 +62,7 @@ table.dataTable thead th:last-child {
 			<!-- Start Section-->
 			<div class="col-md-12 p-none">
 				<div class="gray-xs-f mb-sm">
-					Platform(s) Supported <span class="requiredStar"> *</span> <span
+					Platform(s) supported <span class="requiredStar"> *</span> <span
 						class="sprites_v3 filled-tooltip" id="infoIconId"></span>
 				</div>
 				<div class="form-group">
@@ -169,21 +169,20 @@ table.dataTable thead th:last-child {
 				<div>
 					<div>
 						<ul class="no-disc">
-							<li><strong>1. Platform Support: </strong><br />
+							<li><strong>1. Platform support: </strong><br />
 								<ul class="no-disc">
-									<li>Note that once the study is Launched, platform support
+									<li>Note that once the study is launched, platform support
 										cannot be revoked. However, adding support for a platform not
 										previously selected will still be possible.</li>
 								</ul></li>
 							<li>&nbsp;</li>
-							<li><strong>2. Feature Support on iOS and Android:</strong><br />
+							<li><strong>2. Feature support on iOS and Android:</strong><br />
 
 								<ul class="no-disc">
 									<li>Given below is a list of features currently NOT
 										available for Android as compared to iOS. Please note the same
-										in your creation of study questionnaires and active tasks.</li>
-									<li>i. Activetasks: Activetask with type Tower Of Hanoi,
-										Spatial Span Memory</li>
+										in your creation of study content:</li>
+									<li>i. Active tasks: Tower Of Hanoi, Spatial Span Memory</li>
 								</ul></li>
 
 						</ul>

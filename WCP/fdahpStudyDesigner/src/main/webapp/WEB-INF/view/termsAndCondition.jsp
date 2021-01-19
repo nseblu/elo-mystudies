@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Study Builder Terms and Conditions</title>
+    <title>Terms of use</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
           rel="stylesheet">
 
