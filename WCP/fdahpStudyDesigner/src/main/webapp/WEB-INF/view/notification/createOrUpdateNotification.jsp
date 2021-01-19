@@ -63,7 +63,12 @@
                          test="${notificationBO.notificationScheduleType eq 'notImmediate'}">checked</c:if>
                      <c:if
                          test="${notificationBO.actionPage eq 'addOrCopy'}">checked</c:if>>
-              <label for="inlineRadio1">Schedule this notification</label>
+              <label for="inlineRadio1">Schedule this notification
+            <span
+               data-toggle="tooltip" data-placement="top"
+               title="This is the text that participant sees as an introductory instruction for the eligibility module of the study in the mobile app. Suggested text has been provided inline."
+               class="filled-tooltip"></span>
+              </label>
             </span>
             <span class="radio radio-inline">
               <input type="radio" id="inlineRadio2" value="immediate"
@@ -189,6 +194,7 @@
 </form:form>
 <script>
   $(document).ready(function () {
+	$('[data-toggle="tooltip"]').tooltip();
     $('#rowId').parent().removeClass('white-bg');
     $("#notification").addClass("active");
 
