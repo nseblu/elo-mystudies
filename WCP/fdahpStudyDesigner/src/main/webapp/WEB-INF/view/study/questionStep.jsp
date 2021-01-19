@@ -3449,8 +3449,6 @@
           $('.textChoiceExclusive').attr("disabled", true);
           $('.textChoiceExclusive').attr("required", false);
           $('.textChoiceExclusive').val('');
-          $('.destionationYes').val('');
-          $('.destionationYes').attr("disabled", false);
           $('.selectpicker').selectpicker('refresh');
           $(".textChoiceExclusive").validator('validate');
           $('.textChoiceExclusive').parent().parent().hide();
@@ -3460,8 +3458,6 @@
           $('.selectpicker').selectpicker('refresh');
           $('.textChoiceExclusive').parent().parent().show();
         }
-      
-     
 
       var responseType = $("#responseTypeId").val();
       if (responseType == '6') {
