@@ -66,7 +66,7 @@
               <label for="inlineRadio1">Schedule this notification
             <span
                data-toggle="tooltip" data-placement="top"
-               title="This is the text that participant sees as an introductory instruction for the eligibility module of the study in the mobile app. Suggested text has been provided inline."
+               title="The notification will get fired at the selected date and time as per server time zone."
                class="filled-tooltip"></span>
               </label>
             </span>
