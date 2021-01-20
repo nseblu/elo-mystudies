@@ -295,7 +295,7 @@
         $("#comprehensionTestMinimumScore").parent().addClass("has-danger").addClass("has-error");
         $("#comprehensionTestMinimumScore").parent().find(".help-block").empty();
         $("#comprehensionTestMinimumScore").parent().find(".help-block").append(
-            "<ul class='list-unstyled'><li>The value should not be more than no of questions or zero</li></ul>");
+            "<ul class='list-unstyled'><li>The score should be less than or equal to the number of questions and greater than 0.</li></ul>");
       } else {
         $("#comprehensionTestMinimumScore").parent().removeClass("has-danger").removeClass(
             "has-error");
@@ -442,7 +442,7 @@
 
       if (!table.data().count()) {
         $('#alertMsg').show();
-        $("#alertMsg").removeClass('s-box').addClass('e-box').html("Add atleast one question !");
+        $("#alertMsg").removeClass('s-box').addClass('e-box').html("Add at least one question");
         setTimeout(hideDisplayMessage, 4000);
       } else if (isFromValid("#comprehensionInfoForm")) {
         saveConsent("Done");
@@ -491,7 +491,7 @@
         $("#comprehensionTestMinimumScore").parent().addClass("has-danger").addClass("has-error");
         $("#comprehensionTestMinimumScore").parent().find(".help-block").empty();
         $("#comprehensionTestMinimumScore").parent().find(".help-block").append(
-            "<ul class='list-unstyled'><li>The value should not be more than no of questions or zero</li></ul>");
+            "<ul class='list-unstyled'><li>The score should be less than or equal to the number of questions and greater than 0.</li></ul>");
       } else {
         $("#comprehensionTestMinimumScore").parent().removeClass("has-danger").removeClass(
             "has-error");

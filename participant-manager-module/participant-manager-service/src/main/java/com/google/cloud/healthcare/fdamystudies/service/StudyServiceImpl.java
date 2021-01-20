@@ -44,6 +44,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -360,8 +361,10 @@ public class StudyServiceImpl implements StudyService {
         participantDetail.setEnrollmentStatus(
             EnrollmentStatus.getDisplayValue(participantDetails.getEnrolledStatus()));
       }
-
-      registryParticipants.add(participantDetail);
+      if (!ArrayUtils.contains(
+          excludeParticipantStudyStatus, participantDetail.getEnrollmentStatus())) {
+        registryParticipants.add(participantDetail);
+      }
     }
 
     participantRegistryDetail.setRegistryParticipants(registryParticipants);
