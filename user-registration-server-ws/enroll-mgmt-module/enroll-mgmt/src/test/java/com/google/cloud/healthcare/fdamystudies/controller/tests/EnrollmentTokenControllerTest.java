@@ -161,7 +161,7 @@ public class EnrollmentTokenControllerTest extends BaseMockIT {
   }
 
   @Test
-  public void validateEnrollmentTokenForbidden() throws Exception {
+  public void validateEnrollmentTokenAlreadyUsedBadRequest() throws Exception {
     HttpHeaders headers = TestUtils.getCommonHeaders();
     headers.add(Constants.USER_ID_HEADER, Constants.VALID_USER_ID);
     headers.add("Authorization", VALID_BEARER_TOKEN);
@@ -188,7 +188,7 @@ public class EnrollmentTokenControllerTest extends BaseMockIT {
                 .content(requestJson)
                 .contextPath(getContextPath()))
         .andDo(print())
-        .andExpect(status().isForbidden());
+        .andExpect(status().isBadRequest());
 
     verifyTokenIntrospectRequest(2);
   }

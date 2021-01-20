@@ -27,6 +27,7 @@ import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.APP_LEVEL_NOT
 import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.APP_LEVEL_NOTIFICATION_REPLICATED_FOR_RESEND;
 import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.STUDY_NEW_NOTIFICATION_CREATED;
 import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.STUDY_NOTIFICATION_MARKED_COMPLETE;
+import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.STUDY_NOTIFICATION_REPLICATED_FOR_RESEND;
 import static com.fdahpstudydesigner.common.StudyBuilderAuditEvent.STUDY_NOTIFICATION_SAVED_OR_UPDATED;
 import static com.fdahpstudydesigner.common.StudyBuilderConstants.NEW_NOTIFICATION_ID;
 import static com.fdahpstudydesigner.common.StudyBuilderConstants.NOTIFICATION_ID;
@@ -39,9 +40,6 @@ import com.fdahpstudydesigner.bo.NotificationHistoryBO;
 import com.fdahpstudydesigner.common.StudyBuilderAuditEvent;
 import com.fdahpstudydesigner.common.StudyBuilderAuditEventHelper;
 import com.fdahpstudydesigner.mapper.AuditEventMapper;
-import com.fdahpstudydesigner.bean.PushNotificationBean;
-import com.fdahpstudydesigner.bo.NotificationBO;
-import com.fdahpstudydesigner.bo.NotificationHistoryBO;
 import com.fdahpstudydesigner.util.FdahpStudyDesignerConstants;
 import com.fdahpstudydesigner.util.FdahpStudyDesignerUtil;
 import com.fdahpstudydesigner.util.SessionObject;
@@ -437,8 +435,7 @@ public class NotificationDAOImpl implements NotificationDAO {
           auditLogEvent = APP_LEVEL_NOTIFICATION_REPLICATED_FOR_RESEND;
         } else if ("resend".equals(buttonType)
             && notificationType.equals(FdahpStudyDesignerConstants.STUDYLEVEL)) {
-          values.put(NOTIFICATION_ID, String.valueOf(notificationId));
-          auditLogEvent = STUDY_NEW_NOTIFICATION_CREATED;
+          auditLogEvent = STUDY_NOTIFICATION_REPLICATED_FOR_RESEND;
         } else if ("save".equals(buttonType)
             && FdahpStudyDesignerConstants.STUDYLEVEL.equals(notificationType)) {
           values.put(NOTIFICATION_ID, String.valueOf(notificationId));

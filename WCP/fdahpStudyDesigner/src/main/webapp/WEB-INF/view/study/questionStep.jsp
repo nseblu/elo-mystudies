@@ -5738,7 +5738,7 @@
       scaleCount = scaleCount + 1;
       if ($('.text-scale').length < 8) {
         var newTextScale = "<div class='text-scale row' id=" + scaleCount + ">" +
-            "	<div class='col-md-4 pl-none'>" +
+            "	<div class='col-md-3 pl-none'>" +
             "    <div class='form-group'>" +
             "      <input type='text' class='form-control TextScaleRequired' name='questionResponseSubTypeList["
             + scaleCount + "].text' id='displayTextSclText" + scaleCount
@@ -5746,7 +5746,7 @@
             "      <div class='help-block with-errors red-txt'></div>" +
             "   </div>" +
             "</div>" +
-            " <div class='col-md-3 pl-none'>" +
+            " <div class='col-md-4 pl-none'>" +
             "    <div class='form-group'>" +
             "       <input type='text' class='form-control TextScaleRequired textScaleValue' class='form-control' name='questionResponseSubTypeList["
             + scaleCount + "].value' id='displayTextSclValue" + scaleCount
