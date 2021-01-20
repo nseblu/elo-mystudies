@@ -294,9 +294,7 @@ public class StudyDAOImpl implements StudyDAO {
                     .setInteger(FdahpStudyDesignerConstants.STUDY_ID, studyId)
                     .uniqueResult();
         if (studySequence != null) {
-          if (consentInfoList.size() == 1) {
-            studySequence.setConsentEduInfo(false);
-          }
+          studySequence.setConsentEduInfo(false);
           if (studySequence.iseConsent()) {
             studySequence.seteConsent(false);
           }
@@ -3594,6 +3592,7 @@ public class StudyDAOImpl implements StudyDAO {
       session = hibernateTemplate.getSessionFactory().openSession();
       transaction = session.beginTransaction();
       session.saveOrUpdate(comprehensionTestQuestionBo);
+
       if ((comprehensionTestQuestionBo.getId() != null)
           && (comprehensionTestQuestionBo.getResponseList() != null)
           && !comprehensionTestQuestionBo.getResponseList().isEmpty()) {
@@ -3613,6 +3612,21 @@ public class StudyDAOImpl implements StudyDAO {
           }
         }
       }
+
+      StudySequenceBo studySequence =
+          (StudySequenceBo)
+              session
+                  .getNamedQuery(FdahpStudyDesignerConstants.STUDY_SEQUENCE_BY_ID)
+                  .setInteger(
+                      FdahpStudyDesignerConstants.STUDY_ID,
+                      comprehensionTestQuestionBo.getStudyId())
+                  .uniqueResult();
+
+      if (studySequence != null) {
+        studySequence.setComprehensionTest(false);
+        session.save(studySequence);
+      }
+
       transaction.commit();
     } catch (Exception e) {
       transaction.rollback();
