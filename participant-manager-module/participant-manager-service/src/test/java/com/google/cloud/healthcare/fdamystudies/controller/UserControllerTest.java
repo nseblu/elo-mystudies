@@ -8,6 +8,9 @@
 
 package com.google.cloud.healthcare.fdamystudies.controller;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.google.cloud.healthcare.fdamystudies.common.CommonConstants.USER_ID_HEADER;
 import static com.google.cloud.healthcare.fdamystudies.common.JsonUtils.asJsonString;
 import static com.google.cloud.healthcare.fdamystudies.common.ParticipantManagerEvent.NEW_USER_CREATED;
@@ -460,6 +463,13 @@ public class UserControllerTest extends BaseMockIT {
     assertAppPermissionDetailsForSuperAdmin(adminforUpdate.getId());
     assertStudyPermissionDetailsForSuperAdmin(adminforUpdate.getId());
     assertSitePermissionDetailsForSuperAdmin(adminforUpdate.getId());
+
+    // verify external API call
+    verify(
+        1,
+        putRequestedFor(
+            urlEqualTo(
+                String.format("/auth-server/users/%s", adminforUpdate.getId() + "/logout"))));
 
     verifyTokenIntrospectRequest();
   }

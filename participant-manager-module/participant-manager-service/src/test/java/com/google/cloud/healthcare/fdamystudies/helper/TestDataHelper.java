@@ -150,6 +150,7 @@ public class TestDataHelper {
     userRegAdminEntity.setLocationPermission(Permission.NO_PERMISSION.value());
     userRegAdminEntity.setStatus(UserStatus.ACTIVE.getValue());
     userRegAdminEntity.setSuperAdmin(false);
+    userRegAdminEntity.setUrAdminAuthId(ADMIN_AUTH_ID_VALUE);
     return userRegAdminEntity;
   }
 
