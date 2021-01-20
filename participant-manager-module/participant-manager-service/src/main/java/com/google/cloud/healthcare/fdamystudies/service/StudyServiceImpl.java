@@ -311,7 +311,6 @@ public class StudyServiceImpl implements StudyService {
       studyParticipantDetails =
           studyRepository.getStudyParticipantDetailsForOpenStudy(
               studyAppDetails.getStudyId(),
-              excludeParticipantStudyStatus,
               limit,
               offset,
               orderByCondition,

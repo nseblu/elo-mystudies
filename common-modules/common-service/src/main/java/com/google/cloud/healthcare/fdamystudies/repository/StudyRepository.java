@@ -230,12 +230,7 @@ public interface StudyRepository extends JpaRepository<StudyEntity, String> {
               + "LIMIT :limit OFFSET :offset ",
       nativeQuery = true)
   public List<StudyParticipantDetails> getStudyParticipantDetailsForOpenStudy(
-      String studyId,
-      String[] excludeParticipantStudyStatus,
-      Integer limit,
-      Integer offset,
-      String orderByCondition,
-      String searchTerm);
+      String studyId, Integer limit, Integer offset, String orderByCondition, String searchTerm);
 
   @Query(
       value =
