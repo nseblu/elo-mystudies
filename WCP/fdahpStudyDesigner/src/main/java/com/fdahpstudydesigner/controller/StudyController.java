@@ -3177,6 +3177,7 @@ public class StudyController {
       if ((sesObj != null)
           && (sesObj.getStudySession() != null)
           && sesObj.getStudySession().contains(sessionStudyCount)) {
+        int order = 0;
         if (comprehensionTestQuestionBo != null) {
           if (comprehensionTestQuestionBo.getId() != null) {
             comprehensionTestQuestionBo.setModifiedBy(sesObj.getUserId());
@@ -3184,7 +3185,7 @@ public class StudyController {
             comprehensionTestQuestionBo.setStatus(true);
           } else {
             if (comprehensionTestQuestionBo.getStudyId() != null) {
-              int order =
+              order =
                   studyService.comprehensionTestQuestionOrder(
                       comprehensionTestQuestionBo.getStudyId());
               comprehensionTestQuestionBo.setSequenceNo(order);
@@ -3197,7 +3198,7 @@ public class StudyController {
               studyService.saveOrUpdateComprehensionTestQuestion(comprehensionTestQuestionBo);
           map.addAttribute("_S", sessionStudyCount);
           if (addComprehensionTestQuestionBo != null) {
-            if (addComprehensionTestQuestionBo.getId() != null) {
+            if (addComprehensionTestQuestionBo.getId() != null && order == 0) {
               request
                   .getSession()
                   .setAttribute(
@@ -3609,7 +3610,11 @@ public class StudyController {
       if ((sesObj != null)
           && (sesObj.getStudySession() != null)
           && sesObj.getStudySession().contains(sessionStudyCount)) {
+        int seqCount = 0;
         if (eligibilityTestBo != null) {
+          if (eligibilityTestBo.getId() != null) {
+            seqCount = eligibilityTestBo.getSequenceNo();
+          }
           customStudyId =
               (String)
                   request
@@ -3642,12 +3647,22 @@ public class StudyController {
                 .setAttribute(
                     sessionStudyCount + "eligibilityId", eligibilityTestBo.getEligibilityId());
             mav = new ModelAndView("redirect:viewStudyEligibiltyTestQusAns.do", map);
+          } else if ((eligibilityTestBo != null)
+              && (FdahpStudyDesignerConstants.ACTION_TYPE_COMPLETE)
+                  .equals(eligibilityTestBo.getType())
+              && seqCount != 0) {
+            request
+                .getSession()
+                .setAttribute(
+                    sessionStudyCount + FdahpStudyDesignerConstants.SUC_MSG,
+                    propMap.get("update.eligibilitytest.success.message"));
+            mav = new ModelAndView("redirect:viewStudyEligibilty.do", map);
           } else {
             request
                 .getSession()
                 .setAttribute(
                     sessionStudyCount + FdahpStudyDesignerConstants.SUC_MSG,
-                    propMap.get(FdahpStudyDesignerConstants.COMPLETE_STUDY_SUCCESS_MESSAGE));
+                    propMap.get("save.eligibilitytest.success.message"));
             mav = new ModelAndView("redirect:viewStudyEligibilty.do", map);
           }
         } else {
