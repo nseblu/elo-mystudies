@@ -63,8 +63,9 @@ export class ChangePasswordComponent
         this.currentPasswordlabel = 'Temporary Password';
       }
     }),
-      (this.passCriteria = `Your password must be at least 8 characters long and contain lower case,  
-      upper case, numeric and special characters.`);
+      (this.passCriteria = `Your password must be at least 8 characters long    
+and contain lower case, upper case, numeric and
+special characters.`);
   }
   changePassword(): void {
     if (!this.resetPasswordForm.valid) return;
