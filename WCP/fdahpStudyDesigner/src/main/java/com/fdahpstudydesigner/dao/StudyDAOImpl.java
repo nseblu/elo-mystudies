@@ -295,9 +295,8 @@ public class StudyDAOImpl implements StudyDAO {
                     .uniqueResult();
         if (studySequence != null) {
           studySequence.setConsentEduInfo(false);
-          if (studySequence.iseConsent()) {
-            studySequence.seteConsent(false);
-          }
+          studySequence.seteConsent(false);
+          studySequence.setComprehensionTest(false);
           session.saveOrUpdate(studySequence);
         }
       }
