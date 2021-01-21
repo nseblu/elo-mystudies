@@ -430,7 +430,7 @@ public class UserControllerTest extends BaseMockIT {
   }
 
   @Test
-  public void shouldUpdateSuperAdminUser() throws Exception {
+  public void shouldUpdateAndLogoutAdminUser() throws Exception {
     // Step 1: Creating a non super admin
     adminforUpdate = testDataHelper.createNonSuperAdmin();
 
@@ -482,7 +482,7 @@ public class UserControllerTest extends BaseMockIT {
 
     // Step 2: Call the API and expect UPDATE_USER_SUCCESS message
     HttpHeaders headers = testDataHelper.newCommonHeaders();
-    headers.set(USER_ID_HEADER, userRegAdminEntity.getId());
+    headers.set(USER_ID_HEADER, adminforUpdate.getId());
 
     UserRequest userRequest = newUserRequestForUpdate();
     userRequest.setSuperAdmin(false);
@@ -490,7 +490,7 @@ public class UserControllerTest extends BaseMockIT {
     userRequest.setId(adminforUpdate.getId());
     mockMvc
         .perform(
-            put(ApiEndpoint.UPDATE_USER.getPath(), userRegAdminEntity.getId())
+            put(ApiEndpoint.UPDATE_USER.getPath(), adminforUpdate.getId())
                 .content(asJsonString(userRequest))
                 .headers(headers)
                 .contextPath(getContextPath()))
@@ -500,7 +500,7 @@ public class UserControllerTest extends BaseMockIT {
         .andExpect(jsonPath("$.userId", notNullValue()));
 
     AuditLogEventRequest auditRequest = new AuditLogEventRequest();
-    auditRequest.setUserId(userRegAdminEntity.getId());
+    auditRequest.setUserId(adminforUpdate.getId());
 
     Map<String, AuditLogEventRequest> auditEventMap = new HashedMap<>();
     auditEventMap.put(USER_RECORD_UPDATED.getEventCode(), auditRequest);
