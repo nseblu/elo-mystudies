@@ -4431,6 +4431,10 @@
         var maxValue = $("#numericMaxValueId").val();
         $(this).parent().removeClass("has-danger").removeClass("has-error");
         $(this).parent().find(".help-block").empty();
+        var minValue = $("#numericMinValueId").val();
+        if(minValue==''){
+      	  $("#numericMinValueId").val("0");
+         } 
         if (maxValue != '') {
           if (parseInt(value) >= parseInt(maxValue)) {
             $(this).val('');
@@ -4449,6 +4453,10 @@
         var minValue = $("#numericMinValueId").val();
         $(this).parent().removeClass("has-danger").removeClass("has-error");
         $(this).parent().find(".help-block").empty();
+        var maxValue = $("#numericMaxValueId").val();
+        if(maxValue==''){
+      	  $("#numericMaxValueId").val("10000");
+           }
         if (minValue != '') {
           if (parseInt(value) <= parseInt(minValue)) {
             $(this).val('');
@@ -5090,6 +5098,15 @@
             $("#condtionalBranchingId").hide();
           }
           $("#" + responseType.replace(/\s/g, '')).show();
+          if(responseType=='Numeric'){
+          	 if($("#numericMinValueId").val()== ''){
+                   $("#numericMinValueId").val("0");
+                   }
+
+                   if($("#numericMaxValueId").val() == ''){
+                       $("#numericMaxValueId").val("10000");
+                    }
+             }
           $("." + responseType.replace(/\s/g, '') + "Required").attr("required", true);
         } else {
 
