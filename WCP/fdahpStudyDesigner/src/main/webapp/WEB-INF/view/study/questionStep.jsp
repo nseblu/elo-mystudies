@@ -4278,51 +4278,45 @@
           }
         }
       });
+      
       $("#scaleDefaultValueId").blur(function () {
-        var value = $("#scaleDefaultValueId").val();
-        var stepSize = $("#scaleStepId").val();
-        $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
-        $("#scaleDefaultValueId").parent().find(".help-block").empty();
-        if (value != '' && stepSize != '') {
-          if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
-            $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
-          } else {
-            $("#scaleDefaultValueId").val('');
-            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
-            $("#scaleDefaultValueId").parent().find(".help-block").append(
-                "<ul class='list-unstyled'><li>Please enter an integer from 0 to number of steps</li></ul>");
-          }
-        } else {
-          if (value != '') {
-            $("#scaleDefaultValueId").val('');
-            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
-            $("#scaleDefaultValueId").parent().find(".help-block").append(
-                "<ul class='list-unstyled'><li>Please enter an step size first </li></ul>");
-          }
-        }
-      });
-
-      $("#scaleDefaultValueId").blur(function(){
-      	var value= $(this).val();
-      	var minValue = $("#scaleMinValueId").val();
+          var value = $("#scaleDefaultValueId").val();
+          var stepSize = $("#scaleStepId").val();
+          var minValue = $("#scaleMinValueId").val();
   		var maxValue = $("#scaleMaxValueId").val();
-  		$(this).parent().removeClass("has-danger").removeClass("has-error");
-          $(this).parent().find(".help-block").empty();
-  		if(value != ''){
-  			if(parseInt(value) >= parseInt(minValue) && parseInt(value) <= parseInt(maxValue)){
-  	    		$(this).parent().removeClass("has-danger").removeClass("has-error");
-  	            $(this).parent().find(".help-block").empty();
-  			}else{
+          $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
+          $("#scaleDefaultValueId").parent().find(".help-block").empty();
+          if (value != '' && stepSize != '') {
+            if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
+          	  if(parseInt(value) >= parseInt(minValue) && parseInt(value) <= parseInt(maxValue)){
+              $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+          	  }else{
   				 $(this).val('');
   	    		 $(this).parent().addClass("has-danger").addClass("has-error");
   	             $(this).parent().find(".help-block").empty();
   	             $(this).parent().find(".help-block").append("<ul class='list-unstyled'><li>Please enter an integer between the minimum and maximum  </li></ul>");
   			}
-  		}
-      });
+            } else {
+              $("#scaleDefaultValueId").val('');
+              $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+              $("#scaleDefaultValueId").parent().find(".help-block").append(
+                $("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                  "Please enter an integer from 0 to number of steps"));
+            }
+          } else {
+            if (value != '') {
+              $("#scaleDefaultValueId").val('');
+              $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+              $("#scaleDefaultValueId").parent().find(".help-block").append(
+                $("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                  "Please enter an step size first "));
+            }
+          }
+        });
+
 
       $("#continuesScaleMinValueId").blur(function () {
 
