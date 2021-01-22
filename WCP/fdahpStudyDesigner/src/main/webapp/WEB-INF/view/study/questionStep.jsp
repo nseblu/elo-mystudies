@@ -1806,7 +1806,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-md-3 pl-none">
+              <div class="col-md-4 pl-none">
                 <div class="gray-xs-f mb-xs">Value (1 to 50 characters)
                   <span
                       class="requiredStar">*
@@ -1830,7 +1830,7 @@
                              id="textScaleSubTypeValueId${subtype.index}"
                              name="questionResponseSubTypeList[${subtype.index}].responseSubTypeValueId"
                              value="${questionResponseSubType.responseSubTypeValueId}">
-                      <div class="col-md-3 pl-none">
+                      <div class="col-md-4 pl-none">
                         <div class="form-group">
                           <input type="text" class="form-control TextScaleRequired"
                                  name="questionResponseSubTypeList[${subtype.index}].text"
@@ -1913,7 +1913,7 @@
                         <div class="help-block with-errors red-txt"></div>
                       </div>
                     </div>
-                    <div class="col-md-3 pl-none">
+                    <div class="col-md-4 pl-none">
                       <div class="form-group">
                         <input type="text" class="form-control TextScaleRequired textScaleValue"
                                name="questionResponseSubTypeList[0].value"
@@ -1964,7 +1964,7 @@
                         <div class="help-block with-errors red-txt"></div>
                       </div>
                     </div>
-                    <div class="col-md-3 pl-none">
+                    <div class="col-md-4 pl-none">
                       <div class="form-group">
                         <input type="text" class="form-control TextScaleRequired textScaleValue"
                                name="questionResponseSubTypeList[1].value"
@@ -5774,7 +5774,7 @@
       scaleCount = scaleCount + 1;
       if ($('.text-scale').length < 8) {
         var newTextScale = "<div class='text-scale row' id=" + scaleCount + ">" +
-            "	<div class='col-md-3 pl-none'>" +
+            "	<div class='col-md-4 pl-none'>" +
             "    <div class='form-group'>" +
             "      <input type='text' class='form-control TextScaleRequired' name='questionResponseSubTypeList["
             + scaleCount + "].text' id='displayTextSclText" + scaleCount
