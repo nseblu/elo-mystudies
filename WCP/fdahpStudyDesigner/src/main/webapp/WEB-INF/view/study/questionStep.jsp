@@ -3562,6 +3562,7 @@
             	 }
           $('.textchoiceOtherCls').show();
           $('.textchoiceOtherCls').find('input:text,select').attr('required', true);
+          $('.textchoiceOtherCls').find('#otherDestinationTextChoiceStepId').attr('required', false);
           $('.OtherOptionCls').find('input:text,select').removeAttr('required');
         } else {
 
