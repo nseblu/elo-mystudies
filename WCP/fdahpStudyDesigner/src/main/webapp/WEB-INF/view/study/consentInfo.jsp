@@ -183,6 +183,7 @@
 <!-- End right Content here -->
 <script type="text/javascript">
   $(document).ready(function () {
+	  $('.studyClass').addClass("active");
     // Fancy Scroll Bar
 
     <c:if test="${actionPage eq 'view'}">

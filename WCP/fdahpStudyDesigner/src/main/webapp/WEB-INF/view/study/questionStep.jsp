@@ -3415,7 +3415,7 @@
   <!-- End right Content here -->
   <script type="text/javascript">
     $(document).ready(function () {
-
+    	$('.studyClass').addClass("active");
       if ($('#useAnchorDateId').is(':checked')) {
         $("#anchorTextId").attr('required', true);
       } else {

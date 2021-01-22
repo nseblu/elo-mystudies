@@ -377,7 +377,7 @@
 <script>
 
   $(document).ready(function () {
-
+	  $('.studyClass').addClass("active");
     <c:if test="${user eq 'logout_login_user'}">
     bootbox.alert({
       closeButton: false,
