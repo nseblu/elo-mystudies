@@ -377,6 +377,7 @@
 <!-- End right Content here -->
 <script type="text/javascript">
   $(document).ready(function () {
+	  $('.studyClass').addClass("active");
     //check the type of page action(view/edit)
     newLearnMoreConsentDocument();
     if ('${permission}' == 'view') {
@@ -922,6 +923,7 @@
   }
 
   $(document).on('show.bs.collapse', '.collapse', function () {
+
     $('.collapse').not(this).collapse('hide').removeClass('in');
   });
 

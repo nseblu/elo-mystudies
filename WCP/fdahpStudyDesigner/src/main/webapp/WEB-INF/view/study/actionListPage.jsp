@@ -190,6 +190,7 @@
 </form:form>
 <script type="text/javascript">
   $(document).ready(function () {
+	$('.studyClass').addClass("active");
     $(".menuNav li").removeClass('active');
     $(".tenth").addClass('active');
     $("#createStudyId").show();

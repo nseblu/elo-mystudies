@@ -1806,7 +1806,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-md-3 pl-none">
+              <div class="col-md-4 pl-none">
                 <div class="gray-xs-f mb-xs">Value (1 to 50 characters)
                   <span
                       class="requiredStar">*
@@ -1830,7 +1830,7 @@
                              id="textScaleSubTypeValueId${subtype.index}"
                              name="questionResponseSubTypeList[${subtype.index}].responseSubTypeValueId"
                              value="${questionResponseSubType.responseSubTypeValueId}">
-                      <div class="col-md-3 pl-none">
+                      <div class="col-md-4 pl-none">
                         <div class="form-group">
                           <input type="text" class="form-control TextScaleRequired"
                                  name="questionResponseSubTypeList[${subtype.index}].text"
@@ -1913,7 +1913,7 @@
                         <div class="help-block with-errors red-txt"></div>
                       </div>
                     </div>
-                    <div class="col-md-3 pl-none">
+                    <div class="col-md-4 pl-none">
                       <div class="form-group">
                         <input type="text" class="form-control TextScaleRequired textScaleValue"
                                name="questionResponseSubTypeList[0].value"
@@ -1964,7 +1964,7 @@
                         <div class="help-block with-errors red-txt"></div>
                       </div>
                     </div>
-                    <div class="col-md-3 pl-none">
+                    <div class="col-md-4 pl-none">
                       <div class="form-group">
                         <input type="text" class="form-control TextScaleRequired textScaleValue"
                                name="questionResponseSubTypeList[1].value"
@@ -3415,7 +3415,7 @@
   <!-- End right Content here -->
   <script type="text/javascript">
     $(document).ready(function () {
-
+    	$('.studyClass').addClass("active");
       if ($('#useAnchorDateId').is(':checked')) {
         $("#anchorTextId").attr('required', true);
       } else {
@@ -4278,32 +4278,45 @@
           }
         }
       });
+      
       $("#scaleDefaultValueId").blur(function () {
-        var value = $("#scaleDefaultValueId").val();
-        var stepSize = $("#scaleStepId").val();
-        $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
-        $("#scaleDefaultValueId").parent().find(".help-block").empty();
-        if (value != '' && stepSize != '') {
-          if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
-            $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
+          var value = $("#scaleDefaultValueId").val();
+          var stepSize = $("#scaleStepId").val();
+          var minValue = $("#scaleMinValueId").val();
+  		var maxValue = $("#scaleMaxValueId").val();
+          $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
+          $("#scaleDefaultValueId").parent().find(".help-block").empty();
+          if (value != '' && stepSize != '') {
+            if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
+          	  if(parseInt(value) >= parseInt(minValue) && parseInt(value) <= parseInt(maxValue)){
+              $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+          	  }else{
+  				 $(this).val('');
+  	    		 $(this).parent().addClass("has-danger").addClass("has-error");
+  	             $(this).parent().find(".help-block").empty();
+  	             $(this).parent().find(".help-block").append("<ul class='list-unstyled'><li>Please enter an integer between the minimum and maximum  </li></ul>");
+  			}
+            } else {
+              $("#scaleDefaultValueId").val('');
+              $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+              $("#scaleDefaultValueId").parent().find(".help-block").append(
+                $("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                  "Please enter an integer from 0 to number of steps"));
+            }
           } else {
-            $("#scaleDefaultValueId").val('');
-            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
-            $("#scaleDefaultValueId").parent().find(".help-block").append(
-                "<ul class='list-unstyled'><li>Please enter an integer from 0 to number of steps</li></ul>");
+            if (value != '') {
+              $("#scaleDefaultValueId").val('');
+              $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+              $("#scaleDefaultValueId").parent().find(".help-block").empty();
+              $("#scaleDefaultValueId").parent().find(".help-block").append(
+                $("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                  "Please enter an step size first "));
+            }
           }
-        } else {
-          if (value != '') {
-            $("#scaleDefaultValueId").val('');
-            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-            $("#scaleDefaultValueId").parent().find(".help-block").empty();
-            $("#scaleDefaultValueId").parent().find(".help-block").append(
-                "<ul class='list-unstyled'><li>Please enter an step size first </li></ul>");
-          }
-        }
-      });
+        });
+
 
       $("#continuesScaleMinValueId").blur(function () {
 
@@ -4412,6 +4425,10 @@
         var maxValue = $("#numericMaxValueId").val();
         $(this).parent().removeClass("has-danger").removeClass("has-error");
         $(this).parent().find(".help-block").empty();
+        var minValue = $("#numericMinValueId").val();
+        if(minValue==''){
+      	  $("#numericMinValueId").val("0");
+         } 
         if (maxValue != '') {
           if (parseInt(value) >= parseInt(maxValue)) {
             $(this).val('');
@@ -4430,6 +4447,10 @@
         var minValue = $("#numericMinValueId").val();
         $(this).parent().removeClass("has-danger").removeClass("has-error");
         $(this).parent().find(".help-block").empty();
+        var maxValue = $("#numericMaxValueId").val();
+        if(maxValue==''){
+      	  $("#numericMaxValueId").val("10000");
+           }
         if (minValue != '') {
           if (parseInt(value) <= parseInt(minValue)) {
             $(this).val('');
@@ -5071,6 +5092,15 @@
             $("#condtionalBranchingId").hide();
           }
           $("#" + responseType.replace(/\s/g, '')).show();
+          if(responseType=='Numeric'){
+          	 if($("#numericMinValueId").val()== ''){
+                   $("#numericMinValueId").val("0");
+                   }
+
+                   if($("#numericMaxValueId").val() == ''){
+                       $("#numericMaxValueId").val("10000");
+                    }
+             }
           $("." + responseType.replace(/\s/g, '') + "Required").attr("required", true);
         } else {
 
@@ -5738,7 +5768,7 @@
       scaleCount = scaleCount + 1;
       if ($('.text-scale').length < 8) {
         var newTextScale = "<div class='text-scale row' id=" + scaleCount + ">" +
-            "	<div class='col-md-3 pl-none'>" +
+            "	<div class='col-md-4 pl-none'>" +
             "    <div class='form-group'>" +
             "      <input type='text' class='form-control TextScaleRequired' name='questionResponseSubTypeList["
             + scaleCount + "].text' id='displayTextSclText" + scaleCount

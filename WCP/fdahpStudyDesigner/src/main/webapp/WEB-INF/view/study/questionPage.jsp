@@ -1681,7 +1681,7 @@
                 title="Enter text choices in the order you want them to appear on the slider. You can enter a text that will be displayed for each slider position, and an associated  value to be captured if that position is selected by the user.  You can also select a destination step for each choice, if you have branching enabled for the questionnaire. "></span>
           </div>
           <div class="row">
-            <div class="col-md-3 pl-none">
+            <div class="col-md-4 pl-none">
               <div class="gray-xs-f mb-xs">Display Text (1 to 15 characters)
                 <span
                     class="requiredStar">*
@@ -1707,7 +1707,7 @@
                            id="textScaleSubTypeValueId${subtype.index}"
                            name="questionResponseSubTypeList[${subtype.index}].responseSubTypeValueId"
                            value="${questionResponseSubType.responseSubTypeValueId}">
-                    <div class="col-md-3 pl-none">
+                    <div class="col-md-4 pl-none">
                       <div class="form-group">
                         <input type="text" class="form-control TextScaleRequired"
                                name="questionResponseSubTypeList[${subtype.index}].text"
@@ -1755,7 +1755,7 @@
               </c:when>
               <c:otherwise>
                 <div class="text-scale row" id="0">
-                  <div class="col-md-3 pl-none">
+                  <div class="col-md-4 pl-none">
                     <div class="form-group">
                       <input type="text" class="form-control TextScaleRequired"
                              name="questionResponseSubTypeList[0].text" id="displayTextSclText0"
@@ -1783,7 +1783,7 @@
                   </div>
                 </div>
                 <div class="text-scale row" id="1">
-                  <div class="col-md-3 pl-none">
+                  <div class="col-md-4 pl-none">
                     <div class="form-group">
                       <input type="text" class="form-control TextScaleRequired"
                              name="questionResponseSubTypeList[1].text" id="displayTextSclText1"
@@ -3090,31 +3090,42 @@ if(document.getElementById("singleSelect").checked==true){
       }
     });
     $("#scaleDefaultValueId").blur(function () {
-      var value = $("#scaleDefaultValueId").val();
-      var stepSize = $("#scaleStepId").val();
-      $(this).parent().removeClass("has-danger").removeClass("has-error");
-      $(this).parent().find(".help-block").empty();
-      if (value != '' && stepSize != '') {
-        if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
-          $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
-          $("#scaleDefaultValueId").parent().find(".help-block").empty();
+        var value = $("#scaleDefaultValueId").val();
+        var stepSize = $("#scaleStepId").val();
+        var minValue = $("#scaleMinValueId").val();
+  	     var maxValue = $("#scaleMaxValueId").val();
+        $(this).parent().removeClass("has-danger").removeClass("has-error");
+        $(this).parent().find(".help-block").empty();
+        if (value != '' && stepSize != '') {
+          if (parseInt(value) >= 0 && parseInt(value) <= parseInt(stepSize)) {
+            if(parseInt(value) >= parseInt(minValue) && parseInt(value) <= parseInt(maxValue)){
+            $("#scaleDefaultValueId").parent().removeClass("has-danger").removeClass("has-error");
+            $("#scaleDefaultValueId").parent().find(".help-block").empty();
+           } else {
+  		  $(this).val('');
+  	      $(this).parent().addClass("has-danger").addClass("has-error");
+  	      $(this).parent().find(".help-block").empty();
+  	      $(this).parent().find(".help-block").append("<ul class='list-unstyled'><li>Please enter an integer between the minimum and maximum  </li></ul>");
+  		 }
+          } else {
+            $("#scaleDefaultValueId").val('');
+            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+            $("#scaleDefaultValueId").parent().find(".help-block").empty();
+            $("#scaleDefaultValueId").parent().find(".help-block").append(
+          	$("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                "Please enter an integer from 0 to number of steps"));
+          }
         } else {
-          $("#scaleDefaultValueId").val('');
-          $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-          $("#scaleDefaultValueId").parent().find(".help-block").empty();
-          $("#scaleDefaultValueId").parent().find(".help-block").append(
-              "<ul class='list-unstyled'><li>Please enter an integer from 0 to number of steps</li></ul>");
+          if (value != '') {
+            $("#scaleDefaultValueId").val('');
+            $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
+            $("#scaleDefaultValueId").parent().find(".help-block").empty();
+            $("#scaleDefaultValueId").parent().find(".help-block").append(
+          	$("<ul><li> </li></ul>").attr("class","list-unstyled").text(
+                "Please enter an step size first "));
+          }
         }
-      } else {
-        if (value != '') {
-          $("#scaleDefaultValueId").val('');
-          $("#scaleDefaultValueId").parent().addClass("has-danger").addClass("has-error");
-          $("#scaleDefaultValueId").parent().find(".help-block").empty();
-          $("#scaleDefaultValueId").parent().find(".help-block").append(
-              "<ul class='list-unstyled'><li>Please enter an step size first </li></ul>");
-        }
-      }
-    });
+      });
     $("#continuesScaleMinValueId").blur(function () {
       var value = $("#continuesScaleMinValueId").val();
       var maxValue = $("#continuesScaleMaxValueId").val();
@@ -3224,6 +3235,10 @@ if(document.getElementById("singleSelect").checked==true){
     $("#numericMinValueId").blur(function () {
       var value = $(this).val();
       var maxValue = $("#numericMaxValueId").val();
+      var minValue = $("#numericMinValueId").val();
+      if(minValue==''){
+    	  $("#numericMinValueId").val("0");
+       }
       $(this).parent().removeClass("has-danger").removeClass("has-error");
       $(this).parent().find(".help-block").empty();
       if (maxValue != '') {
@@ -3242,6 +3257,10 @@ if(document.getElementById("singleSelect").checked==true){
     $("#numericMaxValueId").blur(function () {
       var value = $(this).val();
       var minValue = $("#numericMinValueId").val();
+      var maxValue = $("#numericMaxValueId").val();
+      if(maxValue==''){
+    	  $("#numericMaxValueId").val("10000");
+         }
       $(this).parent().removeClass("has-danger").removeClass("has-error");
       $(this).parent().find(".help-block").empty();
       if (minValue != '') {
@@ -3676,6 +3695,15 @@ if(document.getElementById("singleSelect").checked==true){
         $("#rlaResonseDataType").text(dataType);
         $("#rlaResonseTypeDescription").text(description);
         $("#" + responseType.replace(/\s/g, '')).show();
+        if(responseType=='Numeric'){
+       	 if($("#numericMinValueId").val()== ''){
+                $("#numericMinValueId").val("0");
+                }
+
+                if($("#numericMaxValueId").val() == ''){
+                    $("#numericMaxValueId").val("10000");
+                 }
+          }
         $("." + responseType.replace(/\s/g, '') + "Required").attr("required", true);
         if (dashboard == 'true') {
           $("#useStasticDataContainerId").show();
@@ -4256,7 +4284,7 @@ if(document.getElementById("singleSelect").checked==true){
     scaleCount = scaleCount + 1;
     if ($('.text-scale').length < 8) {
       var newTextScale = "<div class='text-scale row' id=" + scaleCount + ">" +
-          "	<div class='col-md-3 pl-none'>" +
+          "	<div class='col-md-4 pl-none'>" +
           "    <div class='form-group'>" +
           "      <input type='text' class='form-control TextScaleRequired' name='questionResponseSubTypeList["
           + scaleCount + "].text' id='displayTextSclText" + scaleCount
