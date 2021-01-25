@@ -124,6 +124,8 @@ Superadmins can manage users of the Participant Manager and in addition, can man
             autocomplete="off"
             class="form-control search-box usr_dtls_search__"
             placeholder="Search an App"
+            [(ngModel)]="filterQuery"
+            (keyup)="onKeyUp()"
           />
         </div>
       </div>
