@@ -21,7 +21,7 @@ export class ChangePasswordComponent
   changePasswordTitle = 'Change Password';
   currentPasswordValidationMessage = 'Enter your current password';
   currentPasswordPlaceholder = 'Enter Current Password';
-  currentPasswordlabel = 'Current Password';
+  currentPasswordlabel = 'Current password';
   hideClickabale = false;
   constructor(
     private readonly fb: FormBuilder,
